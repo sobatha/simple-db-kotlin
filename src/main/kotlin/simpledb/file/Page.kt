@@ -55,8 +55,9 @@ class Page {
 
     companion object {
         private val CHARSET: Charset = Charsets.US_ASCII
-        fun maxLength(strLen: Int) {
+        fun maxLength(strLen: Int): Int {
             val bytePerChar = CHARSET.newEncoder().maxBytesPerChar()
+            return (Int.SIZE_BYTES + (strLen * bytePerChar)).toInt()
         }
     }
 }

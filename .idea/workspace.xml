@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="implement BlockId">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="implement Page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/BlockId.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/BlockId.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,12 +85,21 @@
       <option name="project" value="LOCAL" />
       <updated>1717253474470</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="implement Page">
+      <option name="closed" value="true" />
+      <created>1717309446021</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717309446021</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="implement BlockId" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement BlockId" />
+    <MESSAGE value="implement Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement Page" />
   </component>
 </project>
