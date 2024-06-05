@@ -38,7 +38,7 @@ class FileMgr(private val dbDirectory: File, val blockSize: Int) {
 
     @Synchronized
     fun append(fileName: String): BlockId {
-        val newBlkNum = blkSize(fileName)
+        val newBlkNum = length(fileName)
         val blk = BlockId(fileName, newBlkNum)
         val b = ByteArray(blockSize)
         try {
@@ -59,7 +59,7 @@ class FileMgr(private val dbDirectory: File, val blockSize: Int) {
         }
     }
 
-    fun blkSize(fileName: String): Int {
+    fun length(fileName: String): Int {
         try {
             val f = getFile(fileName)
             return (f.length() / blockSize).toInt()

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="Page fixed">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/FileMgr.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/file/FileMgrTest.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add test library">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/BlockId.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/BlockId.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/FileMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/FileMgr.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="JUnit5 Test Class" />
         <option value="Kotest Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -44,7 +42,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build simple-db-kotlin.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -123,7 +125,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717310262353</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="implement fileMgr">
+      <option name="closed" value="true" />
+      <created>1717315693908</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717315693908</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add test library">
+      <option name="closed" value="true" />
+      <created>1717315743577</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717315743577</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -131,6 +149,8 @@
     <MESSAGE value="implement BlockId" />
     <MESSAGE value="implement Page" />
     <MESSAGE value="Page fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Page fixed" />
+    <MESSAGE value="implement fileMgr" />
+    <MESSAGE value="add test library" />
+    <option name="LAST_COMMIT_MESSAGE" value="add test library" />
   </component>
 </project>
