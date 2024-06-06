@@ -9,7 +9,7 @@ class LogMgr(
     private val logfile: String
 ) {
     private val logPage: Page
-    private val currentBlock: BlockId
+    private var currentBlock: BlockId
     private var latestLSN = 0
     private var lastSavedLSN = 0
     init {
@@ -29,6 +29,22 @@ class LogMgr(
     fun iterator(): Iterator<ByteArray> {
         forceFlush()
         return LogIterator(fm, currentBlock)
+    }
+    @Synchronized
+    fun append(rec: ByteArray): Int {
+        var boundary = logPage.getInt(0)
+        val recSize = rec.size
+        val bytesNeeded = recSize + Int.SIZE_BYTES
+        if (boundary - bytesNeeded < Int.SIZE_BYTES) {
+            forceFlush()
+            currentBlock = appendNewBlock()
+            boundary = logPage.getInt(0)
+        }
+        val recPos = boundary - bytesNeeded
+        logPage.setBytes(recPos, rec)
+        logPage.setInt(0, recPos)
+        latestLSN += 1
+        return latestLSN
     }
     private fun appendNewBlock(): BlockId {
         val blk = fm.append(logfile)

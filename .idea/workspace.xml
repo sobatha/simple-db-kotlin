@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add test library">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add log manager implementations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/FileMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/FileMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogIterator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogIterator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717315743577</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add log manager implementations">
+      <option name="closed" value="true" />
+      <created>1717596052459</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717596052460</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -151,6 +159,7 @@
     <MESSAGE value="Page fixed" />
     <MESSAGE value="implement fileMgr" />
     <MESSAGE value="add test library" />
-    <option name="LAST_COMMIT_MESSAGE" value="add test library" />
+    <MESSAGE value="add log manager implementations" />
+    <option name="LAST_COMMIT_MESSAGE" value="add log manager implementations" />
   </component>
 </project>
