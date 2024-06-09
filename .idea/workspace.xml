@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add log manager implementations">
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add buffer manager implementations">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/Buffer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/BufferMgr.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogIterator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogIterator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogMgr.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +30,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sobatha"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e66bb54e-1b86-48b8-a95e-41f21b689e89" />
+        <option name="url" value="https://github.com/sobatha/simple-db-kotlin.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -149,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717596052460</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add log manager implementations">
+      <option name="closed" value="true" />
+      <created>1717682681611</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1717682681611</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -160,6 +182,7 @@
     <MESSAGE value="implement fileMgr" />
     <MESSAGE value="add test library" />
     <MESSAGE value="add log manager implementations" />
-    <option name="LAST_COMMIT_MESSAGE" value="add log manager implementations" />
+    <MESSAGE value="add buffer manager implementations" />
+    <option name="LAST_COMMIT_MESSAGE" value="add buffer manager implementations" />
   </component>
 </project>
