@@ -31,7 +31,7 @@ class Buffer(private val fileMgr: FileMgr, private val logMgr: LogMgr) {
     fun flush() {
         if (modificationCount >= 0 && block != null) {
             logMgr.flush(lsn)
-            fileMgr.read(block!!, contents)
+            fileMgr.write(block!!, contents)
             pins = 0
         }
     }

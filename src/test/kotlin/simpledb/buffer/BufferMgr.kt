@@ -27,7 +27,6 @@ class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
         buffer.unpin()
         if (!buffer.isPinned) {
             numAvailable++
-            lock.notifyAll()
         }
     }
     @Synchronized
