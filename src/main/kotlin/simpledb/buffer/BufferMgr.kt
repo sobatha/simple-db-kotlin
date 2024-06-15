@@ -7,11 +7,15 @@ import simpledb.log.LogMgr
 class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
     private val bufferPool: MutableList<Buffer> = mutableListOf()
     @Volatile
-    var numAvailable = 0
+    var numAvailable = numBuff
         private set
 
     private val MAX_TIME = 10000 // 10seconds for wait limits
     private val lock = java.lang.Object()
+
+    init {
+        bufferPool.addAll((0 until numBuff).map { Buffer(fileMgr, logMgr) })
+    }
 
     fun waitingTooLong(startTime: Long) = System.currentTimeMillis() - startTime > MAX_TIME
 
@@ -55,7 +59,7 @@ class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
         return bufferPool.find { !it.isPinned }
     }
 
-    private fun findExistingBuffer(block: BlockId): Buffer? {
-        return bufferPool.find { it.block == block && it.block != null }
+    private fun findExistingBuffer(blk: BlockId): Buffer? {
+        return bufferPool.find { it.block == blk && it.block != null }
     }
 }

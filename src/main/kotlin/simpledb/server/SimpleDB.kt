@@ -6,7 +6,7 @@ import simpledb.log.LogMgr
 
 class SimpleDB(val dirName: String) {
     companion object {
-        const val BUFFER_SIZE = 8
+        const val BUFFER_SIZE = 4
         const val BLOCK_SIZE = 400
         const val LOG_FILE = "simpledb.tmp"
     }
