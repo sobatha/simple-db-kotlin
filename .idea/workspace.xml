@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="add buffer manager implementations">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/Buffer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/Buffer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/BufferMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/buffer/BufferMgr.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="fix import">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/Buffer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/Buffer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/file/FileMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/file/FileMgrTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +28,18 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -31,12 +53,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "sobatha"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sobatha&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -58,6 +80,8 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build simple-db-kotlin.executor": "Run",
+    "Gradle.LogTest.executor": "Run",
+    "Kotlin.LogTestKt.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -67,11 +91,24 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "Kotest",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Kotest": "io.kotest.core.spec.style.FunSpec",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
+    "last_opened_file_path": "/Users/otsubo.natsuki/git/personal/simple-db-kotlin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "/Users/otsubo.natsuki/.gradle"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -79,14 +116,63 @@
       <recent name="io.kotest.core.spec.style.FunSpec" />
       <recent name="" />
     </key>
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="org.example.simpledb.tx.recovery" />
+      <recent name="simpledb.tx.recovery" />
+      <recent name="simpledb.tx" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="simpledb.tx" />
+      <recent name="simpledb.tx.recovery" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="simpledb.file" />
     </key>
   </component>
+  <component name="RunManager" selected="Kotlin.LogTestKt">
+    <configuration name="LogTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;simpledb.log.LogTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LogTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.log.LogTestKt" />
+      <module name="simple-db-kotlin.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.LogTestKt" />
+        <item itemvalue="Gradle.LogTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-20.0.2-corretto-20.0.2.1-4caba194b151-d89c1816" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -98,6 +184,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717250853786</updated>
+      <workItem from="1718372645066" duration="12092000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -179,8 +266,35 @@
       <option name="project" value="LOCAL" />
       <updated>1717950863941</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add logrecord">
+      <option name="closed" value="true" />
+      <created>1718373845804</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1718373845804</updated>
+    </task>
+    <task id="LOCAL-00012" summary="implement logrecord">
+      <option name="closed" value="true" />
+      <created>1718438298640</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1718438298641</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix import">
+      <option name="closed" value="true" />
+      <created>1718439533738</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1718439533738</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
@@ -191,6 +305,9 @@
     <MESSAGE value="add test library" />
     <MESSAGE value="add log manager implementations" />
     <MESSAGE value="add buffer manager implementations" />
-    <option name="LAST_COMMIT_MESSAGE" value="add buffer manager implementations" />
+    <MESSAGE value="add logrecord" />
+    <MESSAGE value="implement logrecord" />
+    <MESSAGE value="fix import" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix import" />
   </component>
 </project>

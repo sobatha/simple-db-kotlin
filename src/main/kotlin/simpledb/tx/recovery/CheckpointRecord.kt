@@ -1,7 +1,7 @@
-package org.example.simpledb.tx.recovery
+package simpledb.tx.recovery
 
-import org.example.simpledb.file.BlockId
-import org.example.simpledb.file.Page
+import simpledb.file.BlockId
+import simpledb.file.Page
 
 class CheckpointRecord(page: Page) : LogRecord {
     val txNum = page.getInt(Integer.BYTES)

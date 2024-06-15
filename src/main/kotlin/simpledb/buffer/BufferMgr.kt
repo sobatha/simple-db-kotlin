@@ -1,7 +1,7 @@
 package simpledb.buffer
 
-import org.example.simpledb.file.BlockId
-import org.example.simpledb.file.FileMgr
+import simpledb.file.BlockId
+import simpledb.file.FileMgr
 import simpledb.log.LogMgr
 
 class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {

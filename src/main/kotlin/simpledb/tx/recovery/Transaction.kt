@@ -1,7 +1,7 @@
-package org.example.simpledb.tx.recovery
+package simpledb.tx.recovery
 
-import org.example.simpledb.file.BlockId
-import org.example.simpledb.file.FileMgr
+import simpledb.file.BlockId
+import simpledb.file.FileMgr
 import simpledb.buffer.BufferMgr
 import simpledb.log.LogMgr
 

@@ -1,6 +1,6 @@
-package org.example.simpledb.tx.recovery
+package simpledb.tx.recovery
 
-import org.example.simpledb.file.Page
+import simpledb.file.Page
 
 interface LogRecord {
     val op: LogType

@@ -1,6 +1,6 @@
-package org.example.simpledb.tx.recovery
+package simpledb.tx.recovery
 
-import org.example.simpledb.file.Page
+import simpledb.file.Page
 
 class RollbackRecord(page: Page) : LogRecord {
     val txNum = page.getInt(Integer.BYTES)
