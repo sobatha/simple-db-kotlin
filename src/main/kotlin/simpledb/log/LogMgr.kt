@@ -35,7 +35,7 @@ class LogMgr(
         var boundary = logPage.getInt(0)
         val recSize = rec.size
         val bytesNeeded = recSize + Int.SIZE_BYTES
-        if (boundary - bytesNeeded < Int.SIZE_BYTES) {
+        if ((boundary - bytesNeeded) < Int.SIZE_BYTES) {
             forceFlush()
             currentBlock = appendNewBlock()
             boundary = logPage.getInt(0)
