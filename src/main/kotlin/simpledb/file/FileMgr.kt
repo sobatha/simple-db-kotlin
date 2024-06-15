@@ -1,16 +1,19 @@
-package org.example.simpledb.file
+package simpledb.file
 
 import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
 
-class FileMgr(private val dbDirectory: File, val blockSize: Int) {
-    val isNew = !dbDirectory.exists()
+class FileMgr(private val dbName: String, val blockSize: Int) {
     private val openFiles: MutableMap<String, RandomAccessFile> = mutableMapOf()
+    val homedir = System.getProperty("user.home");
+    val dbDirectory = File(homedir, dbName);
+    val isNew = !dbDirectory.exists()
+
     init {
         if (isNew) dbDirectory.mkdirs()
 
-        dbDirectory.list().forEach {
+        dbDirectory.list()?.forEach {
             if (it.startsWith("temp")) File(dbDirectory, it).delete()
         }
     }

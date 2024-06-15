@@ -1,8 +1,8 @@
 package simpledb.log
 
-import org.example.simpledb.file.BlockId
-import org.example.simpledb.file.FileMgr
-import org.example.simpledb.file.Page
+import simpledb.file.BlockId
+import simpledb.file.FileMgr
+import simpledb.file.Page
 
 class LogIterator(
     private val fm: FileMgr,

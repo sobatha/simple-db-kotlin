@@ -1,4 +1,4 @@
-package org.example.simpledb.file
+package simpledb.file
 
 import java.nio.ByteBuffer
 import java.nio.charset.Charset

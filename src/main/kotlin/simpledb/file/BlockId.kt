@@ -1,4 +1,4 @@
-package org.example.simpledb.file
+package simpledb.file
 
 /*
  * identifies a specific block by irs file name and logical block number
