@@ -2,17 +2,15 @@ package org.example.simpledb.tx.recovery
 
 import org.example.simpledb.file.Page
 
-open interface LogRecord {
-    fun writeTo(w: Page)
-    val op: Int
+interface LogRecord {
+    val op: LogType
     val txNumber: Int
-    fun undo(txnum: Int)
+    fun undo(tx: Transaction)
 
     companion object {
         fun createLogRecord(bytes: ByteArray): LogRecord {
             val p = Page(bytes)
-            val op = p.getInt(0)
-            return when (op) {
+            return when (val op = p.getInt(0)) {
                 LogType.START.value -> StartRecord(p)
                 LogType.COMMIT.value -> CommitRecord(p)
                 LogType.ROLLBACK.value -> RollbackRecord(p)
