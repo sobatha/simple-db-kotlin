@@ -10,14 +10,14 @@ class Buffer(private val fileMgr: FileMgr, private val logMgr: LogMgr) {
     var block: BlockId? = null
         private set
     private var pins = 0
-    var modificationCount = 0
+    var modifyingTx = 0
         private set
     private var lsn = 0
     val isPinned: Boolean
         get() = pins > 0
 
-    fun setModified(modifiedNumber: Int, lsn: Int) {
-        modificationCount = modifiedNumber
+    fun setModified(txNum: Int, lsn: Int) {
+        modifyingTx = txNum
         if (lsn >= 0) this.lsn = lsn
     }
 
@@ -29,7 +29,7 @@ class Buffer(private val fileMgr: FileMgr, private val logMgr: LogMgr) {
     }
 
     fun flush() {
-        if (modificationCount >= 0 && block != null) {
+        if (modifyingTx >= 0 && block != null) {
             logMgr.flush(lsn)
             fileMgr.write(block!!, contents)
             pins = 0

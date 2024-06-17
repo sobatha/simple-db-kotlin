@@ -22,7 +22,7 @@ class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
     @Synchronized
     fun flushAll(modifiedCount: Int) {
         bufferPool
-            .filter { it.modificationCount == modifiedCount }
+            .filter { it.modifyingTx == modifiedCount }
             .map { it.flush() }
     }
 
