@@ -7,9 +7,9 @@ import simpledb.log.LogMgr
 class SetStringRecord(val page: Page) : LogRecord {
     val txNum = page.getInt(Integer.BYTES)
     val fileName = page.getString(Integer.BYTES * 2)
-    val blknum = page.getInt(Integer.BYTES * 2 + fileName.length)
-    val offset = page.getInt(Integer.BYTES * 3 + fileName.length)
-    val string_val = page.getString(Integer.BYTES * 4 + fileName.length)
+    val blknum = page.getInt(Integer.BYTES * 2 + Page.maxLength(fileName.length))
+    val offset = page.getInt(Integer.BYTES * 3 + Page.maxLength(fileName.length))
+    val string_val = page.getString(Integer.BYTES * 4 + Page.maxLength(fileName.length))
     val blk = BlockId(fileName, blknum)
 
     override val op: LogType
@@ -29,7 +29,7 @@ class SetStringRecord(val page: Page) : LogRecord {
         fun writeToLog(logMgr: LogMgr, txNum: Int, block: BlockId, offset: Int, string_val: String): Int {
             val tpos = Integer.BYTES
             val fpos = tpos + Integer.BYTES
-            val bpos = fpos + block.fileName.length
+            val bpos = fpos + Page.maxLength(block.fileName.length)
             val opos = bpos + Integer.BYTES
             val vpos = opos + Integer.BYTES
             val rec_size = vpos + Page.maxLength(string_val.length)

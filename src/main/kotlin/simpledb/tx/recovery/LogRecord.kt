@@ -1,6 +1,7 @@
 package simpledb.tx.recovery
 
 import simpledb.file.Page
+import simpledb.log.LogMgr
 
 interface LogRecord {
     val op: LogType
@@ -19,6 +20,24 @@ interface LogRecord {
                 LogType.CHECKPOINT.value -> CheckpointRecord(p)
                 else -> throw IllegalArgumentException("Unknown log record type $op")
             }
+        }
+
+        fun writeToLog(logMgr: LogMgr, txNum: Int, logType: LogType): Int {
+            val tpos = Integer.BYTES
+            val fpos = tpos + Integer.BYTES
+            val bpos = fpos + Page.maxLength("dummyfile".length)
+            val opos = bpos + Integer.BYTES
+            val vpos = opos + Integer.BYTES
+            val rec_size = vpos + Integer.BYTES
+            val rec = ByteArray(rec_size)
+            val page = Page(rec)
+            page.setInt(0, logType.value)
+            page.setInt(tpos, txNum)
+            page.setString(fpos, "dummyfile")
+            page.setInt(bpos, 0)
+            page.setInt(opos, 0)
+            page.setInt(vpos, 0)
+            return logMgr.append(rec)
         }
     }
 }

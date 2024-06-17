@@ -24,7 +24,7 @@ class FileMgr(private val dbName: String, val blockSize: Int) {
             f.seek((blk.number * blockSize).toLong())
             f.channel.read(p.contents())
         } catch (e: IOException) {
-            throw RuntimeException("cannot read block $blk")
+            throw RuntimeException("cannot read block $blk $e")
         }
     }
 
