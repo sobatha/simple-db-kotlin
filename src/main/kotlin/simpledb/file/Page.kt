@@ -9,7 +9,7 @@ import java.nio.charset.Charset
  * second constructor creates a page that gets its memory from a Java array.
  */
 class Page {
-    private val DEFAULT_CHARSET: Charset = Charsets.US_ASCII
+    private val DEFAULT_CHARSET: Charset = Charsets.UTF_8
     private var byteBuffer: ByteBuffer
 
     constructor(blockSize: Int) {
@@ -44,7 +44,7 @@ class Page {
     }
 
     fun setString(offset: Int, string: String) {
-        val b = string.toByteArray(DEFAULT_CHARSET)
+        val b = string.toByteArray()
         setBytes(offset, b)
     }
 
@@ -54,7 +54,7 @@ class Page {
     }
 
     companion object {
-        private val CHARSET: Charset = Charsets.US_ASCII
+        private val CHARSET: Charset = Charsets.UTF_8
         fun maxLength(strLen: Int): Int {
             val bytePerChar = CHARSET.newEncoder().maxBytesPerChar()
             return (Int.SIZE_BYTES + (strLen * bytePerChar)).toInt()

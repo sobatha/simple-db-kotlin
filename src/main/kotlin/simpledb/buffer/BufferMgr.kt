@@ -33,6 +33,13 @@ class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
             numAvailable++
         }
     }
+
+    fun unpinAll() {
+        bufferPool.forEach { unpin(it) }
+    }
+
+    fun getBuffer(blk: BlockId) = findExistingBuffer(blk)
+
     @Synchronized
     fun pin(blk: BlockId): Buffer {
         val timeStamp = System.currentTimeMillis()
@@ -46,9 +53,13 @@ class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
 
     @Synchronized
     fun tryToPin(blk: BlockId):Buffer? {
-        val buffer = findExistingBuffer(blk) ?: run {
-            chooseUnpinnedBuffer() ?: return null
-        }
+        val buffer = findExistingBuffer(blk)
+            ?: run {
+                chooseUnpinnedBuffer()
+                ?.apply { assignToBlock(blk) }
+                ?: return null
+            }
+
         return buffer.apply {
             if(!isPinned) numAvailable--
             pin()
