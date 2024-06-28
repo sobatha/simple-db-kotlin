@@ -41,7 +41,6 @@ class LockTable {
                 lock.wait(MAX_TIME)
             }
             if (hasOtherSlock(blk)) throw RuntimeException("waiting too long to get xlock")
-            val lockVal = getLockVal(blk)
             locks[blk] = -1
         } catch (e: Exception) {
             throw RuntimeException("cannot acquire lock")
