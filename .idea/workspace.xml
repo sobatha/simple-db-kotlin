@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="create writeTolog">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/RecoveryMgrTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="fix import">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/Buffer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/Buffer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/file/FileMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/file/FileMgrTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,17 +32,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simple-db-kotlin" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -49,7 +46,6 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Kotest Class" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -71,10 +67,6 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -89,13 +81,7 @@
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build simple-db-kotlin.executor": "Run",
     "Gradle.LogTest.executor": "Run",
-    "Gradle.TxTest.executor": "Run",
-    "Kotest.RecoveryMgrTest: main (1).executor": "Run",
-    "Kotest.RecoveryMgrTest: main.executor": "Run",
-    "Kotlin.BufferMgrTestKt.executor": "Run",
     "Kotlin.LogTestKt.executor": "Run",
-    "Kotlin.RecoveryMgrTestKt.executor": "Run",
-    "Kotlin.TxTestKt.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -143,8 +129,8 @@
       <recent name="simpledb.file" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.TxTestKt">
-    <configuration name="TxTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Kotlin.LogTestKt">
+    <configuration name="LogTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -157,7 +143,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;simpledb.tx.TxTest&quot;" />
+            <option value="&quot;simpledb.log.LogTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -168,139 +154,17 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BufferMgrTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.buffer.BufferMgrTestKt" />
-      <module name="simple-db-kotlin.test" />
-      <shortenClasspath name="NONE" />
-      <extension name="com.fapiko.jetbrains.plugins.better_direnv.runconfigs.IdeaRunConfigurationExtension">
-        <option name="DIRENV_ENABLED" value="false" />
-        <option name="DIRENV_TRUSTED" value="false" />
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="LogTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="simpledb.log.LogTestKt" />
       <module name="simple-db-kotlin.test" />
-      <shortenClasspath name="NONE" />
-      <extension name="com.fapiko.jetbrains.plugins.better_direnv.runconfigs.IdeaRunConfigurationExtension">
-        <option name="DIRENV_ENABLED" value="false" />
-        <option name="DIRENV_TRUSTED" value="false" />
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RecoveryMgrTestKt" type="JetRunConfigurationType" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.tx.RecoveryMgrTestKt" />
-      <module name="simple-db-kotlin.test" />
-      <shortenClasspath name="NONE" />
-      <extension name="com.fapiko.jetbrains.plugins.better_direnv.runconfigs.IdeaRunConfigurationExtension">
-        <option name="DIRENV_ENABLED" value="false" />
-        <option name="DIRENV_TRUSTED" value="false" />
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TxTestKt" type="JetRunConfigurationType" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.tx.TxTestKt" />
-      <module name="simple-db-kotlin.test" />
-      <shortenClasspath name="NONE" />
-      <extension name="com.fapiko.jetbrains.plugins.better_direnv.runconfigs.IdeaRunConfigurationExtension">
-        <option name="DIRENV_ENABLED" value="false" />
-        <option name="DIRENV_TRUSTED" value="false" />
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RecoveryMgrTest: main (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
-      <module name="simple-db-kotlin.test" />
-      <option name="jrePath" value="" />
-      <option name="jrePathEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
-      <option name="programParameters" value="" />
-      <option name="specName" value="simpledb.tx.RecoveryMgrTest" />
-      <option name="testPath" value="main" />
-      <option name="packageName" value="" />
-      <option name="vmparams" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RecoveryMgrTest: main" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
-      <module name="simple-db-kotlin.test" />
-      <option name="jrePath" value="" />
-      <option name="jrePathEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
-      <option name="programParameters" value="" />
-      <option name="specName" value="simpledb.tx.RecoveryMgrTest" />
-      <option name="testPath" value="main" />
-      <option name="packageName" value="" />
-      <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotest.RecoveryMgrTest: main (1)" />
-        <item itemvalue="Kotest.RecoveryMgrTest: main" />
         <item itemvalue="Kotlin.LogTestKt" />
-        <item itemvalue="Kotlin.BufferMgrTestKt" />
-        <item itemvalue="Gradle.TxTest (1)" />
+        <item itemvalue="Gradle.LogTest" />
       </list>
     </recent_temporary>
   </component>
@@ -321,7 +185,6 @@
       <option name="presentableId" value="Default" />
       <updated>1717250853786</updated>
       <workItem from="1718372645066" duration="12092000" />
-      <workItem from="1718457362407" duration="36421000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -427,47 +290,7 @@
       <option name="project" value="LOCAL" />
       <updated>1718439533738</updated>
     </task>
-    <task id="LOCAL-00014" summary="fix import">
-      <option name="closed" value="true" />
-      <created>1718460415510</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1718460415510</updated>
-    </task>
-    <task id="LOCAL-00015" summary="test logging">
-      <option name="closed" value="true" />
-      <created>1718460443960</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1718460443960</updated>
-    </task>
-    <task id="LOCAL-00016" summary="test logging">
-      <option name="closed" value="true" />
-      <created>1718463493134</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1718463493134</updated>
-    </task>
-    <task id="LOCAL-00017" summary="rename to clear tx relationship">
-      <option name="closed" value="true" />
-      <created>1718599175959</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1718599175959</updated>
-    </task>
-    <task id="LOCAL-00018" summary="create writeTolog">
-      <option name="closed" value="true" />
-      <created>1718599276092</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1718599276092</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,83 +308,6 @@
     <MESSAGE value="add logrecord" />
     <MESSAGE value="implement logrecord" />
     <MESSAGE value="fix import" />
-    <MESSAGE value="test logging" />
-    <MESSAGE value="rename to clear tx relationship" />
-    <MESSAGE value="create writeTolog" />
-    <option name="LAST_COMMIT_MESSAGE" value="create writeTolog" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogTest.kt</url>
-          <line>40</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/simpledb/log/LogTest.kt</url>
-          <line>35</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt</url>
-          <line>47</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/BufferMgr.kt</url>
-          <line>23</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/buffer/Buffer.kt</url>
-          <line>32</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/log/LogMgr.kt</url>
-          <line>24</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/file/Page.kt</url>
-          <line>30</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt</url>
-          <line>69</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt</url>
-          <line>13</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt</url>
-          <line>32</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt</url>
-          <line>38</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <breakpoint type="java-exception">
-          <properties class="java.lang.IllegalMonitorStateException" package="java.lang" />
-          <option name="timeStamp" value="15" />
-        </breakpoint>
-        <breakpoint type="java-exception">
-          <properties class="java.lang.RuntimeException" package="java.lang" />
-          <option name="timeStamp" value="21" />
-        </breakpoint>
-        <line-breakpoint type="java-line">
-          <url>jar://$USER_HOME$/.sdkman/candidates/java/17.0.10-zulu/zulu-17.jdk/Contents/Home/lib/src.zip!/java.base/java/nio/HeapByteBuffer.java</url>
-          <line>181</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="LAST_COMMIT_MESSAGE" value="fix import" />
   </component>
 </project>
