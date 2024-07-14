@@ -21,7 +21,6 @@ class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: Buffe
     @Synchronized
     private fun getNextTxNumber(): Int {
         nextTxNumber++
-        println("nextTxNumber: $nextTxNumber")
         return nextTxNumber
     }
 
@@ -35,7 +34,7 @@ class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: Buffe
         myBuffers.remove(blk)
     }
 
-    fun setString(blk: BlockId, offset: Int, log_value: String, is_need_logged: Boolean) {
+    fun setString(blk: BlockId, offset: Int, log_value: String, is_need_logged: Boolean = true) {
         concurrencyMgr.xLock(blk)
         val buff = bufferMgr.getBuffer(blk)!!
         val page = buff.contents
@@ -47,7 +46,7 @@ class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: Buffe
         buff.setModified(txNum, lsn)
     }
 
-    fun setInt(blk: BlockId, offset: Int, log_value: Int, is_need_logged: Boolean) {
+    fun setInt(blk: BlockId, offset: Int, log_value: Int, is_need_logged: Boolean = true) {
         concurrencyMgr.xLock(blk)
         val buff = bufferMgr.getBuffer(blk)!!
         var lsn = -1

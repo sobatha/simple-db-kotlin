@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="Add layout and schema for Table record constructure">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/LayoutTest.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="Add test for layout">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Constant.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Scan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/UpdateScan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/RID.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/RecordPage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/TableScan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/RecordPageTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/TableScanTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Layout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Layout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/RecoveryMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/RecoveryMgrTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/LayoutTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/LayoutTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +84,10 @@
     "Gradle.LayoutTest (1).executor": "Run",
     "Gradle.LayoutTest.executor": "Run",
     "Gradle.LogTest.executor": "Run",
+    "Gradle.RecordTest (1).executor": "Run",
+    "Gradle.RecordTest.executor": "Run",
     "Kotlin.LogTestKt.executor": "Run",
+    "Kotlin.TableScanTest.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -124,7 +136,7 @@
       <recent name="simpledb.file" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.TableScanTest">
     <configuration name="LayoutTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -173,6 +185,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="RecordTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;simpledb.record.RecordTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="LogTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="simpledb.log.LogTestKt" />
       <module name="simple-db-kotlin.test" />
@@ -180,8 +216,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TableScanTest" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.record.TableScanTest" />
+      <module name="simple-db-kotlin.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.TableScanTest" />
+        <item itemvalue="Gradle.RecordTest (1)" />
         <item itemvalue="Gradle.LayoutTest (1)" />
         <item itemvalue="Kotlin.LogTestKt" />
         <item itemvalue="Gradle.LogTest" />
@@ -325,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720938248857</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add test for layout">
+      <option name="closed" value="true" />
+      <created>1720940145748</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1720940145748</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,6 +421,7 @@
     <MESSAGE value="fix import" />
     <MESSAGE value="implement concurrency" />
     <MESSAGE value="Add layout and schema for Table record constructure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add layout and schema for Table record constructure" />
+    <MESSAGE value="Add test for layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add test for layout" />
   </component>
 </project>

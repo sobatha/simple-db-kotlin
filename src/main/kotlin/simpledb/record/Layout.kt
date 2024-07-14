@@ -1,4 +1,4 @@
-package org.example.simpledb.record
+package simpledb.record
 
 import simpledb.file.Page
 

@@ -2,8 +2,8 @@ package simpledb.record
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import org.example.simpledb.record.Layout
-import org.example.simpledb.record.Schema
+import simpledb.record.Layout
+import simpledb.record.Schema
 import simpledb.file.Page
 
 class LayoutTest : FunSpec({
