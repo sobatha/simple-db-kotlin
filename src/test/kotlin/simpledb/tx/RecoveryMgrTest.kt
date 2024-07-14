@@ -7,7 +7,6 @@ import simpledb.tx.recovery.RecoveryMgr
 import simpledb.tx.recovery.SetStringRecord
 import simpledb.tx.recovery.Transaction
 
-
 fun main() {
     val db = SimpleDB("recoverytestdb")
     val fileMgr = db.fileMgr

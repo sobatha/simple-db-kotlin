@@ -15,7 +15,7 @@ class Layout(val schema: Schema) {
         slotSize = pos
     }
 
-    fun offsets(name: String) = offsets[name]
+    fun offset(name: String) = offsets[name]
 
     private fun lengthInBytes(name: String) =
         when (schema.type(name)) {
