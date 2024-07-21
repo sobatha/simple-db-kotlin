@@ -47,7 +47,7 @@ class SetIntRecord(page: Page) : LogRecord {
             page.setInt(bpos, block.number)
             page.setInt(opos, offset)
             page.setInt(vpos, value)
-            println("<logType: SETINT, Tx number: $txNum>")
+//            println("<logType: SETINT, Tx number: $txNum>")
             return logMgr.append(rec)
         }
     }

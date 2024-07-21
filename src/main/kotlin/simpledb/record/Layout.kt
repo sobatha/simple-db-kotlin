@@ -2,18 +2,27 @@ package simpledb.record
 
 import simpledb.file.Page
 
-class Layout(val schema: Schema) {
-    private val offsets: MutableMap<String, Int> = mutableMapOf()
+class Layout {
+    val schema: Schema
+    private var offsets: MutableMap<String, Int> = mutableMapOf()
     val slotSize: Int
 
-    init {
-        var pos = Int.SIZE_BYTES
-        schema.fields.forEach{ name ->
+    constructor(schema: Schema) {
+        this.schema = schema
+        var pos = Int.SIZE_BYTES // leave space for the empty/inuse flag
+        schema.fields.forEach { name ->
             offsets[name] = pos
             pos += lengthInBytes(name)
         }
         slotSize = pos
     }
+
+    constructor(schema: Schema, offsets: MutableMap<String, Int>, slotSize: Int) {
+        this.schema = schema
+        this.offsets = offsets
+        this.slotSize = slotSize
+    }
+
 
     fun offset(name: String) = offsets[name]
 

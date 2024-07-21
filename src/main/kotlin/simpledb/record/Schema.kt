@@ -30,4 +30,15 @@ class Schema {
     data class FieldInfo(val type: FieldType, val length: Int)
 }
 
-enum class FieldType { INTEGER, VARCHAR }
+enum class FieldType(val number:Int) {
+    INTEGER(0), VARCHAR(1);
+    companion object {
+        fun fieldTypeFactory(number: Int): FieldType =
+            when (number) {
+                0 -> FieldType.INTEGER
+                else -> FieldType.VARCHAR
+            }
+    }
+
+}
+
