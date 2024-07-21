@@ -63,7 +63,6 @@ class TableMgr(private val isNew: Boolean, val transaction: Transaction) {
                 size = tableCatalog.getInt("slotSize")
                 break
             }
-            tableCatalog.close()
         }
         val schema = Schema()
         val offsets = mutableMapOf<String, Int>()

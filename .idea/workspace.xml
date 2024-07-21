@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="TableMgr">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatInfo.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="metadatas implemented">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/MetadataMgr.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/MetadataMgrTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/hash/HashIndex.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/hash/HashIndex.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Kotest Class" />
         <option value="Kotlin Class" />
+        <option value="Kotest Class" />
       </list>
     </option>
   </component>
@@ -88,6 +89,7 @@
     "Gradle.TableMgrTest (1).executor": "Debug",
     "Gradle.TableMgrTest.executor": "Run",
     "Kotlin.LogTestKt.executor": "Run",
+    "Kotlin.MetadataMgrTestKt.executor": "Debug",
     "Kotlin.TableScanTest.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -138,7 +140,7 @@
       <recent name="simpledb.file" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.MetadataMgrTestKt">
     <configuration name="LayoutTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -211,8 +213,8 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LogTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="simpledb.log.LogTestKt" />
+    <configuration name="MetadataMgrTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.metadata.MetadataMgrTestKt" />
       <module name="simple-db-kotlin.test" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -227,11 +229,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.MetadataMgrTestKt" />
         <item itemvalue="Gradle.TableMgrTest (1)" />
         <item itemvalue="Kotlin.TableScanTest" />
         <item itemvalue="Gradle.RecordTest (1)" />
         <item itemvalue="Gradle.LayoutTest (1)" />
-        <item itemvalue="Kotlin.LogTestKt" />
       </list>
     </recent_temporary>
   </component>
@@ -396,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721536036198</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="metadatas">
+      <option name="closed" value="true" />
+      <created>1721536969521</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1721536969521</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,7 +452,9 @@
     <MESSAGE value="Add test for layout" />
     <MESSAGE value="Implement ScanTable" />
     <MESSAGE value="TableMgr" />
-    <option name="LAST_COMMIT_MESSAGE" value="TableMgr" />
+    <MESSAGE value="metadatas" />
+    <MESSAGE value="metadatas implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="metadatas implemented" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -454,7 +466,7 @@
         </line-breakpoint>
         <line-breakpoint type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt</url>
-          <line>81</line>
+          <line>80</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint type="kotlin-line">
@@ -464,8 +476,23 @@
         </line-breakpoint>
         <line-breakpoint type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt</url>
-          <line>80</line>
+          <line>79</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt</url>
+          <line>30</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt</url>
+          <line>17</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt</url>
+          <line>43</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

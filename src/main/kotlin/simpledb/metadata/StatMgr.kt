@@ -12,11 +12,11 @@ class StatMgr(private val tblMgr: TableMgr, tx: Transaction) {
     }
 
     @Synchronized
-    fun getStatInfo(tblname: String, layout: Layout, tx: Transaction): StatInfo {
+    fun getStatInfo(tableName: String, layout: Layout, tx: Transaction): StatInfo {
         numcalls++
         if (numcalls > 100) refreshStatistics(tx)
-        return tablestats[tblname] ?: calcTableStats(tblname, layout, tx).also {
-            tablestats[tblname] = it
+        return tablestats[tableName] ?: calcTableStats(tableName, layout, tx).also {
+            tablestats[tableName] = it
         }
     }
 
@@ -24,23 +24,23 @@ class StatMgr(private val tblMgr: TableMgr, tx: Transaction) {
     private fun refreshStatistics(tx: Transaction) {
         tablestats = mutableMapOf()
         numcalls = 0
-        val tcatlayout = tblMgr.getLayout("tblcat", tx)
-        TableScan(tx, "tblcat", tcatlayout).let { tcat ->
+        val tcatlayout = tblMgr.getLayout("tableCatalog", tx)
+        TableScan(tx, "tableCatalog", tcatlayout).let { tcat ->
             while (tcat.next()) {
-                val tblname = tcat.getString("tblname")
-                val layout = tblMgr.getLayout(tblname, tx)
-                val si = calcTableStats(tblname, layout, tx)
-                tablestats[tblname] = si
+                val tableName = tcat.getString("tableName")
+                val layout = tblMgr.getLayout(tableName, tx)
+                val si = calcTableStats(tableName, layout, tx)
+                tablestats[tableName] = si
             }
             tcat.close()
         }
     }
 
     @Synchronized
-    private fun calcTableStats(tblname: String, layout: Layout, tx: Transaction): StatInfo {
+    private fun calcTableStats(tableName: String, layout: Layout, tx: Transaction): StatInfo {
         var numRecs = 0
         var numblocks = 0
-        TableScan(tx, tblname, layout).let { ts ->
+        TableScan(tx, tableName, layout).let { ts ->
             while (ts.next()) {
                 numRecs++
                 numblocks = ts.getRid().blockNumber + 1
