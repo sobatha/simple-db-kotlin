@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="Implement ScanTable">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" afterDir="false" />
+    <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="TableMgr">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatInfo.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Layout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Layout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -390,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720965969704</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="TableMgr">
+      <option name="closed" value="true" />
+      <created>1721536036198</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1721536036198</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +441,8 @@
     <MESSAGE value="Add layout and schema for Table record constructure" />
     <MESSAGE value="Add test for layout" />
     <MESSAGE value="Implement ScanTable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement ScanTable" />
+    <MESSAGE value="TableMgr" />
+    <option name="LAST_COMMIT_MESSAGE" value="TableMgr" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

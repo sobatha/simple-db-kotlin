@@ -2,7 +2,7 @@ package simpledb.metadata
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import org.example.simpledb.metadata.TableMgr
+import simpledb.metadata.TableMgr
 import simpledb.record.Schema
 import simpledb.record.TableScan
 import simpledb.server.SimpleDB

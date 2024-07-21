@@ -25,6 +25,7 @@ class ViewMgr(isNew: Boolean, private val tblMgr: TableMgr, tx: Transaction) {
             ts.insert()
             ts.setString("viewname", vname)
             ts.setString("viewdef", vdef)
+            ts.close()
         }
     }
 
@@ -37,7 +38,7 @@ class ViewMgr(isNew: Boolean, private val tblMgr: TableMgr, tx: Transaction) {
                     result = ts.getString("viewdef")
                 }
             }
-
+            ts.close()
         }
         return result
     }
