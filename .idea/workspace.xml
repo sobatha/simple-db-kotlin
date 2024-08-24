@@ -5,14 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8373842b-6d23-4b92-9f20-24ca10efc9d8" name="Changes" comment="metadatas implemented">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Expression.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Lexer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Parser.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/Plan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Expression.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Term.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/parse/LexerTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/ConnectionAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/DriverAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/ResultSetAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/ResultSetMetaDataAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/StatementAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/embedded/EmbeddedConnection.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/embedded/EmbeddedDriver.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/embedded/EmbeddedMetaData.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/embedded/EmbeddedResultSet.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/jdbc/embedded/EmbeddedStatement.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/BadSyntaxException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/PredicateParser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/BasicQueryPlanner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/BasicUpdatePlanner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/Planner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/ProductPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/ProjectPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/QueryPlanner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/SelectPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/TablePlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Predicate.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/ProductScan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/ProjectScan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/SelectScan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/startServer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/parse/ParserTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/Index.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/Index.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/hash/HashIndex.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/index/hash/HashIndex.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/IndexInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/IndexInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/IndexMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/IndexMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/MetadataMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/MetadataMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/StatMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/ViewMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Expression.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/IndexData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Lexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Lexer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/parse/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/plan/Plan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Term.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/query/Term.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/RecordPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/RecordPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/Schema.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/TableScan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/record/TableScan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/server/SimpleDB.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/concurrency/ConcurrencyMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/concurrency/ConcurrencyMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CheckpointRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/CommitRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/LogRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RecoveryMgr.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/RollbackRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetIntRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/SetStringRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/StartRecord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/recovery/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/simpledb/tx/Transaction.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/MetadataMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/MetadataMgrTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/metadata/TableMgrTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/parse/LexerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/parse/LexerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/RecordPageTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/RecordPageTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/TableScanTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/record/TableScanTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/RecoveryMgrTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/RecoveryMgrTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/simpledb/tx/TxTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +103,9 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Kotest Class" />
-        <option value="Kotlin Class" />
         <option value="Class" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -80,62 +135,62 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build simple-db-kotlin.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LayoutTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LayoutTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LogTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RecordTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RecordTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TableMgrTest (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.TableMgrTest.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.LexerTestKt.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.LogTestKt.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.MetadataMgrTestKt.executor&quot;: &quot;Debug&quot;,
-    &quot;Kotlin.TableScanTest.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;Kotest&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Kotest&quot;: &quot;io.kotest.core.spec.style.FunSpec&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/otsubo.natsuki/git/personal/simple-db-kotlin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;/Users/otsubo.natsuki/.gradle&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build simple-db-kotlin.executor": "Run",
+    "Gradle.LayoutTest (1).executor": "Run",
+    "Gradle.LayoutTest.executor": "Run",
+    "Gradle.LogTest.executor": "Run",
+    "Gradle.RecordTest (1).executor": "Run",
+    "Gradle.RecordTest.executor": "Run",
+    "Gradle.TableMgrTest (1).executor": "Debug",
+    "Gradle.TableMgrTest.executor": "Run",
+    "Kotlin.LexerTestKt (1).executor": "Run",
+    "Kotlin.LexerTestKt.executor": "Run",
+    "Kotlin.LogTestKt.executor": "Run",
+    "Kotlin.MetadataMgrTestKt.executor": "Debug",
+    "Kotlin.ParserTest.executor": "Run",
+    "Kotlin.StartServerKt.executor": "Run",
+    "Kotlin.TableScanTest.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "Kotest",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Kotest": "io.kotest.core.spec.style.FunSpec",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/yokomizonatsuki/git/simple-db-kotlin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="io.kotest.core.spec.style.FunSpec" />
       <recent name="" />
     </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="simpledb.jdbc.embedded" />
+      <recent name="simpledb.plan" />
       <recent name="simpledb.parse" />
       <recent name="org.example.simpledb.tx.recovery" />
       <recent name="simpledb.tx.recovery" />
-      <recent name="simpledb.tx" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="simpledb.jdbc" />
       <recent name="simpledb.tx" />
       <recent name="simpledb.tx.recovery" />
     </key>
@@ -146,54 +201,13 @@
       <recent name="simpledb.file" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.LexerTestKt">
-    <configuration name="RecordTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;simpledb.record.RecordTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="TableMgrTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;simpledb.metadata.TableMgrTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
+  <component name="RunManager" selected="Kotlin.ParserTest">
+    <configuration name="LexerTestKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.parse.LexerTestKt" />
+      <module name="simple-db-kotlin.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="LexerTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="simpledb.parse.LexerTestKt" />
@@ -210,20 +224,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TableScanTest" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="simpledb.record.TableScanTest" />
+    <configuration name="ParserTest" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.parse.ParserTest" />
       <module name="simple-db-kotlin.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StartServerKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="simpledb.server.StartServerKt" />
+      <module name="simple-db-kotlin.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.ParserTest" />
+        <item itemvalue="Kotlin.StartServerKt" />
+        <item itemvalue="Kotlin.LexerTestKt (1)" />
         <item itemvalue="Kotlin.LexerTestKt" />
         <item itemvalue="Kotlin.MetadataMgrTestKt" />
-        <item itemvalue="Gradle.TableMgrTest (1)" />
-        <item itemvalue="Kotlin.TableScanTest" />
-        <item itemvalue="Gradle.RecordTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -484,6 +505,15 @@
           <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/metadata/TableMgr.kt</url>
           <line>43</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/simpledb/plan/BasicQueryPlanner.kt</url>
+          <line>12</line>
+          <properties class="simpledb.plan.BasicQueryPlanner" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

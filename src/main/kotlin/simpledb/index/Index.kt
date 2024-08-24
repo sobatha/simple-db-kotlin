@@ -1,4 +1,4 @@
-package org.example.simpledb.index
+package simpledb.index
 
 class Index {
 }

@@ -1,6 +1,6 @@
 package simpledb.tx.recovery
 
-import simpledb.file.BlockId
+import simpledb.tx.Transaction
 import simpledb.file.Page
 import simpledb.log.LogMgr
 

@@ -1,13 +1,9 @@
 package simpledb.record
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
-import simpledb.record.Layout
-import simpledb.record.RecordPage
-import simpledb.record.Schema
 import simpledb.file.BlockId
 import simpledb.server.SimpleDB
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 class RecordTest : FunSpec({
 
     lateinit var db: SimpleDB
@@ -18,7 +14,7 @@ class RecordTest : FunSpec({
 
     beforeTest {
         db = SimpleDB("recordTest")
-        tx = db.newTx()
+        tx = db.newTransaction()
 
         val schema = Schema().apply {
             addIntField("A")

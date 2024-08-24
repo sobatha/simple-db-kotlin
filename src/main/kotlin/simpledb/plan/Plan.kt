@@ -1,10 +1,17 @@
 package simpledb.plan;
 
-import org.jetbrains.annotations.NotNull;
+import simpledb.query.Scan
+import simpledb.record.Schema
 
-public class Plan {
-    @NotNull
-    public Object distinctValues(@NotNull String lhsName) {
-        return null;
-    }
+
+interface Plan {
+    fun open(): Scan
+
+    fun blocksAccessed(): Int
+
+    fun recordsOutput(): Int
+
+    fun distinctValues(fieldName: String): Int
+
+    fun schema(): Schema
 }

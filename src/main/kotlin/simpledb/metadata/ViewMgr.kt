@@ -1,7 +1,7 @@
 package simpledb.metadata
 
 import simpledb.record.*
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class ViewMgr(isNew: Boolean, private val tblMgr: TableMgr, tx: Transaction) {
     companion object {

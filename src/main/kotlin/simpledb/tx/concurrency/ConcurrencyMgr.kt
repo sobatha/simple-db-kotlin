@@ -1,4 +1,4 @@
-package org.example.simpledb.tx.concurrency
+package simpledb.tx.concurrency
 
 import simpledb.file.BlockId
 import simpledb.tx.concurrency.LockTable

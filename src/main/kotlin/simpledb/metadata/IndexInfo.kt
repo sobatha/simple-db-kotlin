@@ -1,8 +1,8 @@
 package simpledb.metadata
 
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 import simpledb.record.*
-import org.example.simpledb.index.hash.HashIndex
+import simpledb.index.hash.HashIndex
 
 class IndexInfo(
     private val idxname: String,

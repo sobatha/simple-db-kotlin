@@ -1,6 +1,6 @@
 package simpledb.metadata
 
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 import simpledb.record.*
 
 class StatMgr(private val tblMgr: TableMgr, tx: Transaction) {

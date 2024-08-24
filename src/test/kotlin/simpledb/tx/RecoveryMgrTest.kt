@@ -1,11 +1,9 @@
 package simpledb.tx
 
-import io.kotest.core.spec.style.FunSpec
 import simpledb.file.BlockId
 import simpledb.server.SimpleDB
-import simpledb.tx.recovery.RecoveryMgr
 import simpledb.tx.recovery.SetStringRecord
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 fun main() {
     val db = SimpleDB("recoverytestdb")

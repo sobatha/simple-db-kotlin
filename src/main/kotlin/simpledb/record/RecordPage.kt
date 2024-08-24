@@ -1,7 +1,7 @@
 package simpledb.record
 
 import simpledb.file.BlockId
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class RecordPage(
     private val transaction: Transaction,

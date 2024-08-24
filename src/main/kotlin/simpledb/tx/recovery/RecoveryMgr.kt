@@ -1,5 +1,6 @@
 package simpledb.tx.recovery
 
+import simpledb.tx.Transaction
 import simpledb.buffer.Buffer
 import simpledb.buffer.BufferMgr
 import simpledb.log.LogMgr

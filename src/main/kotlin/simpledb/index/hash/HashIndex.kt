@@ -1,7 +1,7 @@
-package org.example.simpledb.index.hash
+package simpledb.index.hash
 
 import simpledb.record.Layout
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class HashIndex(tx: Transaction, idxname: String, idxLayout: Layout) {
     companion object {

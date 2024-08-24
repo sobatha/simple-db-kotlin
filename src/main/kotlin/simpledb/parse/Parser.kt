@@ -20,7 +20,7 @@ class Parser(s: String) {
 
     fun term(): Term {
         val lhs = expression()
-        lex.eatDelim('=')
+        lex.eatDelimiter('=')
         val rhs = expression()
         return Term(lhs, rhs)
     }
@@ -52,7 +52,7 @@ class Parser(s: String) {
     private fun selectList(): List<String> {
         val L = mutableListOf(field())
         if (lex.matchDelim(',')) {
-            lex.eatDelim(',')
+            lex.eatDelimiter(',')
             L.addAll(selectList())
         }
         return L
@@ -61,7 +61,7 @@ class Parser(s: String) {
     private fun tableList(): Collection<String> {
         val L = mutableListOf(lex.eatId())
         if (lex.matchDelim(',')) {
-            lex.eatDelim(',')
+            lex.eatDelimiter(',')
             L.addAll(tableList())
         }
         return L
@@ -76,11 +76,14 @@ class Parser(s: String) {
         else -> create()
     }
 
-    private fun create(): Any = when {
-        lex.matchKeyword("table") -> createTable()
-        lex.matchKeyword("view") -> createView()
-        else -> createIndex()
-    }.also { lex.eatKeyword("create") }
+    private fun create(): Any {
+        lex.eatKeyword("create")
+        return when {
+            lex.matchKeyword("table") -> createTable()
+            lex.matchKeyword("view") -> createView()
+            else -> createIndex()
+        }
+    }
 
     // Method for parsing delete commands
 
@@ -102,20 +105,20 @@ class Parser(s: String) {
         lex.eatKeyword("insert")
         lex.eatKeyword("into")
         val tblname = lex.eatId()
-        lex.eatDelim('(')
+        lex.eatDelimiter('(')
         val flds = fieldList()
-        lex.eatDelim(')')
+        lex.eatDelimiter(')')
         lex.eatKeyword("values")
-        lex.eatDelim('(')
+        lex.eatDelimiter('(')
         val vals = constList()
-        lex.eatDelim(')')
+        lex.eatDelimiter(')')
         return InsertData(tblname, flds, vals)
     }
 
     private fun fieldList(): List<String> {
         val L = mutableListOf(field())
         if (lex.matchDelim(',')) {
-            lex.eatDelim(',')
+            lex.eatDelimiter(',')
             L.addAll(fieldList())
         }
         return L
@@ -124,7 +127,7 @@ class Parser(s: String) {
     private fun constList(): List<Constant> {
         val L = mutableListOf(constant())
         if (lex.matchDelim(',')) {
-            lex.eatDelim(',')
+            lex.eatDelimiter(',')
             L.addAll(constList())
         }
         return L
@@ -137,7 +140,7 @@ class Parser(s: String) {
         val tblname = lex.eatId()
         lex.eatKeyword("set")
         val fldname = field()
-        lex.eatDelim('=')
+        lex.eatDelimiter('=')
         val newval = expression()
         var pred = Predicate()
         if (lex.matchKeyword("where")) {
@@ -152,16 +155,16 @@ class Parser(s: String) {
     fun createTable(): CreateTableData {
         lex.eatKeyword("table")
         val tblname = lex.eatId()
-        lex.eatDelim('(')
+        lex.eatDelimiter('(')
         val sch = fieldDefs()
-        lex.eatDelim(')')
+        lex.eatDelimiter(')')
         return CreateTableData(tblname, sch)
     }
 
     private fun fieldDefs(): Schema {
         val schema = fieldDef()
         if (lex.matchDelim(',')) {
-            lex.eatDelim(',')
+            lex.eatDelimiter(',')
             val schema2 = fieldDefs()
             schema.addAll(schema2)
         }
@@ -180,9 +183,9 @@ class Parser(s: String) {
             schema.addIntField(fldname)
         } else {
             lex.eatKeyword("varchar")
-            lex.eatDelim('(')
+            lex.eatDelimiter('(')
             val strLen = lex.eatIntConstant()
-            lex.eatDelim(')')
+            lex.eatDelimiter(')')
             schema.addStringField(fldname, strLen)
         }
         return schema
@@ -205,9 +208,9 @@ class Parser(s: String) {
         val idxname = lex.eatId()
         lex.eatKeyword("on")
         val tblname = lex.eatId()
-        lex.eatDelim('(')
+        lex.eatDelimiter('(')
         val fldname = field()
-        lex.eatDelim(')')
+        lex.eatDelimiter(')')
         return CreateIndexData(idxname, tblname, fldname)
     }
 }

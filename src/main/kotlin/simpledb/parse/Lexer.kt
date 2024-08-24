@@ -4,10 +4,6 @@ import java.io.IOException
 import java.io.StreamTokenizer
 import java.io.StringReader
 
-object BadSyntaxException : Throwable() {
-
-}
-
 class Lexer(s: String) {
     private val keywords: Set<String>
     private val tok: StreamTokenizer
@@ -38,32 +34,32 @@ class Lexer(s: String) {
 
     // Methods to "eat" the current token
 
-    fun eatDelim(d: Char) {
-        if (!matchDelim(d)) throw BadSyntaxException
+    fun eatDelimiter(d: Char) {
+        if (!matchDelim(d)) throw BadSyntaxException()
         nextToken()
     }
 
     fun eatIntConstant(): Int {
-        if (!matchIntConstant()) throw BadSyntaxException
+        if (!matchIntConstant()) throw BadSyntaxException()
         val i = tok.nval.toInt()
         nextToken()
         return i
     }
 
     fun eatStringConstant(): String {
-        if (!matchStringConstant()) throw BadSyntaxException
+        if (!matchStringConstant()) throw BadSyntaxException()
         val s = tok.sval // constants are not converted to lower case
         nextToken()
         return s
     }
 
     fun eatKeyword(w: String) {
-        if (!matchKeyword(w)) throw BadSyntaxException
+        if (!matchKeyword(w)) throw BadSyntaxException()
         nextToken()
     }
 
     fun eatId(): String {
-        if (!matchId()) throw BadSyntaxException
+        if (!matchId()) throw BadSyntaxException()
         val s = tok.sval
         nextToken()
         return s
@@ -73,7 +69,7 @@ class Lexer(s: String) {
         try {
             tok.nextToken()
         } catch (e: IOException) {
-            throw BadSyntaxException
+            throw BadSyntaxException()
         }
     }
 

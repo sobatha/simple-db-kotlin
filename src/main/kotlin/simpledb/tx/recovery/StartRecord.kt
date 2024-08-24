@@ -2,6 +2,7 @@ package simpledb.tx.recovery
 
 import simpledb.file.Page
 import simpledb.log.LogMgr
+import simpledb.tx.Transaction
 
 class StartRecord(page: Page) : LogRecord {
     val txNum = page.getInt(Integer.BYTES)

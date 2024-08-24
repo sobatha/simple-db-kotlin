@@ -1,13 +1,12 @@
 package simpledb.metadata
 
 import simpledb.server.SimpleDB
-import simpledb.tx.recovery.Transaction
 import simpledb.record.*
 import kotlin.math.roundToInt
 
 fun main() {
     val db = SimpleDB("metadatamgrtest")
-    val tx = db.newTx()
+    val tx = db.newTransaction()
     val mdm = MetadataMgr(true, tx)
 
     val sch = Schema().apply {

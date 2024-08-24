@@ -1,6 +1,6 @@
 package simpledb.metadata
 
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 import simpledb.record.*
 
 class MetadataMgr(isNew: Boolean, tx: Transaction) {

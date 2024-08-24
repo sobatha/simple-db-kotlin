@@ -3,7 +3,7 @@ package simpledb.record
 import simpledb.query.Constant
 import simpledb.file.BlockId
 import simpledb.query.UpdateScan
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class TableScan(
     private val transaction: Transaction,

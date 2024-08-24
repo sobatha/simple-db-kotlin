@@ -1,12 +1,12 @@
-package simpledb.tx.recovery
+package simpledb.tx
 
-import org.example.simpledb.tx.concurrency.ConcurrencyMgr
+import simpledb.tx.concurrency.ConcurrencyMgr
 import simpledb.buffer.Buffer
 import simpledb.file.BlockId
 import simpledb.file.FileMgr
 import simpledb.buffer.BufferMgr
-import simpledb.file.Page
 import simpledb.log.LogMgr
+import simpledb.tx.recovery.RecoveryMgr
 
 class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: BufferMgr) {
     companion object {
@@ -94,4 +94,9 @@ class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: Buffe
     fun blkSize() = fileMgr.blockSize
 
     fun availableBuffers() = bufferMgr.numAvailable
+
+    fun recover() {
+        bufferMgr.flushAll(txNum)
+        recoveryMgr.recover()
+    }
 }

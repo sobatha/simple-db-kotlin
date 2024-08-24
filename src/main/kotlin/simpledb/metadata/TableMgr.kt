@@ -4,7 +4,7 @@ import simpledb.record.FieldType
 import simpledb.record.Layout
 import simpledb.record.Schema
 import simpledb.record.TableScan
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class TableMgr(private val isNew: Boolean, val transaction: Transaction) {
     private val tableCatalogLayout: Layout

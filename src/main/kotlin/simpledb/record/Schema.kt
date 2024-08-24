@@ -21,6 +21,12 @@ class Schema {
         addField(name, schema.type(name), schema.length(name))
     }
 
+    fun addAll(schema: Schema) {
+        for (fieldName in schema.fields) {
+            add(fieldName, schema)
+        }
+    }
+
     fun length(name: String) = info[name]!!.length
 
     fun type(name: String) = info[name]!!.type

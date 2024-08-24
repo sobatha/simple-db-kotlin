@@ -1,8 +1,7 @@
 package simpledb.tx
 
-import io.kotest.core.spec.style.FunSpec
 import simpledb.file.BlockId
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 import simpledb.server.SimpleDB
 
 fun main() {

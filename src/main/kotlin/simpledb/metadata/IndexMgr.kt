@@ -1,7 +1,7 @@
 package simpledb.metadata
 
 import simpledb.record.*
-import simpledb.tx.recovery.Transaction
+import simpledb.tx.Transaction
 
 class IndexMgr(isNew: Boolean, private val tblmgr: TableMgr, private val statmgr: StatMgr, tx: Transaction) {
     private val layout: Layout

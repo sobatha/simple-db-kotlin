@@ -16,12 +16,12 @@ fun main() {
         val lex = Lexer(s)
         val (x, y) = if (lex.matchId()) {
             val id = lex.eatId()
-            lex.eatDelim('=')
+            lex.eatDelimiter('=')
             val constant = lex.eatIntConstant()
             Pair(id, constant)
         } else {
             val constant = lex.eatIntConstant()
-            lex.eatDelim('=')
+            lex.eatDelimiter('=')
             val id = lex.eatId()
             Pair(id, constant)
         }

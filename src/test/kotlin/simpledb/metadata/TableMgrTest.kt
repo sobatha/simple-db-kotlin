@@ -10,7 +10,7 @@ import simpledb.server.SimpleDB
 class TableMgrTest : FunSpec({
     test("test table manager") {
         val db = SimpleDB("tabletest")
-        val tx = db.newTx()
+        val tx = db.newTransaction()
         val tm = TableMgr(true, tx)
 
         val schema = Schema().apply {

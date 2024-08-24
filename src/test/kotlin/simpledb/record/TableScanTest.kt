@@ -6,7 +6,7 @@ object TableScanTest {
     @JvmStatic
     fun main(args: Array<String>) {
         val db = SimpleDB("tabletest")
-        val tx = db.newTx()
+        val tx = db.newTransaction()
 
         val sch = Schema().apply {
             addIntField("A")
