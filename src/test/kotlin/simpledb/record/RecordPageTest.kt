@@ -13,7 +13,7 @@ class RecordTest : FunSpec({
     lateinit var rp: RecordPage
 
     beforeTest {
-        db = SimpleDB("recordTest")
+        db = SimpleDB("recordTest0000")
         tx = db.newTransaction()
 
         val schema = Schema().apply {

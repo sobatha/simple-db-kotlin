@@ -1,102 +1,155 @@
 package simpledb.tx
 
-import simpledb.tx.concurrency.ConcurrencyMgr
 import simpledb.buffer.Buffer
+import simpledb.buffer.BufferMgr
 import simpledb.file.BlockId
 import simpledb.file.FileMgr
-import simpledb.buffer.BufferMgr
 import simpledb.log.LogMgr
+import simpledb.tx.concurrency.ConcurrencyMgr
 import simpledb.tx.recovery.RecoveryMgr
 
-class Transaction(val fileMgr: FileMgr, val logMgr: LogMgr, val bufferMgr: BufferMgr) {
-    companion object {
-        private val END_OF_FILE = -1
-        private var nextTxNumber = 0
-    }
-    private val txNum = getNextTxNumber()
-    private val recoveryMgr = RecoveryMgr(this, txNum, logMgr, bufferMgr)
-    private val concurrencyMgr = ConcurrencyMgr()
-    private val myBuffers = mutableMapOf<BlockId, Buffer>()
+class Transaction(
+    val fileManager: FileMgr,
+    val bufferManager: BufferMgr,
+    val logManager: LogMgr,
+) {
+    private val enfOfFile = -1
+    private var recoveryManager: RecoveryMgr
+    private var concurrencyManager: ConcurrencyMgr
+    private var transactionNumber: Int = nextTransactionNumber()
+    private var myBuffers: BufferList
 
-    @Synchronized
-    private fun getNextTxNumber(): Int {
-        nextTxNumber++
-        return nextTxNumber
+    init {
+        recoveryManager = RecoveryMgr(this, transactionNumber, logManager, bufferManager)
+        concurrencyManager = ConcurrencyMgr()
+        myBuffers = BufferList(bufferManager)
     }
-
-    fun pin(blk: BlockId) {
-        val buff = bufferMgr.pin(blk)
-        myBuffers[blk] = buff
-    }
-
-    fun unpin(blk: BlockId) {
-        bufferMgr.unpin(myBuffers[blk]!!)
-        myBuffers.remove(blk)
-    }
-
-    fun setString(blk: BlockId, offset: Int, log_value: String, is_need_logged: Boolean = true) {
-        concurrencyMgr.xLock(blk)
-        val buff = bufferMgr.getBuffer(blk)!!
-        val page = buff.contents
-        var lsn = -1
-        if (is_need_logged) {
-            lsn = recoveryMgr.setString(buff, offset, log_value)
-        }
-        page.setString(offset, log_value)
-        buff.setModified(txNum, lsn)
-    }
-
-    fun setInt(blk: BlockId, offset: Int, log_value: Int, is_need_logged: Boolean = true) {
-        concurrencyMgr.xLock(blk)
-        val buff = bufferMgr.getBuffer(blk)!!
-        var lsn = -1
-        if (is_need_logged) {
-            lsn = recoveryMgr.setInt(buff, offset, log_value)
-        }
-        val page = buff.contents
-        page.setInt(offset, log_value)
-        buff.setModified(txNum, lsn)
-    }
-
 
     fun commit() {
-        recoveryMgr.commit()
-        concurrencyMgr.release()
-        bufferMgr.unpinAll()
+        recoveryManager.commit()
+        concurrencyManager.release()
+        myBuffers.unpinAll()
+        println("transaction $transactionNumber committed")
     }
 
     fun rollback() {
-        recoveryMgr.rollback()
-        concurrencyMgr.release()
-        bufferMgr.unpinAll()
-    }
-    fun getInt(blk: BlockId, i: Int): Int? {
-        concurrencyMgr.sLock(blk)
-        return bufferMgr.getBuffer(blk)?.contents?.getInt(i)
-    }
-    fun getString(blk: BlockId, i: Int): String? {
-        concurrencyMgr.sLock(blk)
-        return bufferMgr.getBuffer(blk)?.contents?.getString(i)
+        recoveryManager.rollback()
+        concurrencyManager.release()
+        myBuffers.unpinAll()
+        println("transaction $transactionNumber rolled back")
     }
 
-    fun size(fileName: String): Int {
-        val dummyBlk = BlockId(fileName, END_OF_FILE)
-        concurrencyMgr.sLock(dummyBlk)
-        return fileMgr.length(fileName)
+    fun  recover() {
+        bufferManager.flushAll(transactionNumber)
+        recoveryManager.recover()
     }
 
-    fun append(fileName: String): BlockId {
-        val dummyBlk = BlockId(fileName, END_OF_FILE)
-        concurrencyMgr.xLock(dummyBlk)
-        return fileMgr.append(fileName)
+    fun pin(blockId: BlockId) {
+        myBuffers.pin(blockId)
     }
 
-    fun blkSize() = fileMgr.blockSize
+    fun unpin(blockId: BlockId) {
+        myBuffers.unpin(blockId)
+    }
 
-    fun availableBuffers() = bufferMgr.numAvailable
+    fun getInt(blockId: BlockId, offset: Int): Int? {
+        concurrencyManager.sLock(blockId)
+        val buffer = myBuffers.getBuffer(blockId) ?: return null
+        return buffer.contents().getInt(offset)
+    }
 
-    fun recover() {
-        bufferMgr.flushAll(txNum)
-        recoveryMgr.recover()
+    fun getString(blockId: BlockId, offset: Int): String? {
+        concurrencyManager.sLock(blockId)
+        val buffer = myBuffers.getBuffer(blockId) ?: return null
+        return buffer.contents().getString(offset)
+    }
+
+    fun setInt(blockId: BlockId, offset: Int, value: Int, okToLog: Boolean) {
+        concurrencyManager.xLock(blockId)
+        val buffer = myBuffers.getBuffer(blockId)
+        var lsn = -1
+        if (buffer == null) return
+        if (okToLog) lsn = recoveryManager.setInt(buffer, offset, value)
+        val page = buffer.contents()
+        page.setInt(offset, value)
+        buffer.setModified(transactionNumber, lsn)
+    }
+
+    fun setString(blockId: BlockId, offset: Int, value: String, okToLog: Boolean) {
+        concurrencyManager.xLock(blockId)
+        val buffer = myBuffers.getBuffer(blockId)
+        var lsn = -1
+        if (buffer == null) return
+        if (okToLog) lsn = recoveryManager.setString(buffer, offset, value)
+        val page = buffer.contents()
+        page.setString(offset, value)
+        buffer.setModified(transactionNumber, lsn)
+    }
+
+    fun size(filename: String): Int {
+        val dummyBlock = BlockId(filename, enfOfFile)
+        concurrencyManager.sLock(dummyBlock)
+        return fileManager.length(filename)
+    }
+
+    fun append(filename: String): BlockId {
+        val dummyBlock = BlockId(filename, enfOfFile)
+        concurrencyManager.xLock(dummyBlock)
+        return fileManager.append(filename)
+    }
+
+    fun blockSize(): Int {
+        return fileManager.blockSize
+    }
+
+    fun availableBuffers(): Int {
+        return bufferManager.available()
+    }
+
+    companion object {
+        var nextTransactionNumber = 0
+
+        @Synchronized
+        fun nextTransactionNumber(): Int {
+            this.nextTransactionNumber++
+            println("new transaction $nextTransactionNumber")
+            return nextTransactionNumber
+        }
+    }
+}
+
+class BufferList(private val bufferManager: BufferMgr) {
+    private val buffers = mutableMapOf<BlockId, Buffer>()
+    private val pins = mutableListOf<BlockId>()
+
+    fun getBuffer(blockId: BlockId): Buffer? {
+        return buffers[blockId]
+    }
+
+    fun pin(blockId: BlockId) {
+        val buffer = bufferManager.pin(blockId)
+        buffers[blockId] = buffer
+        pins.add(blockId)
+    }
+
+    fun unpin(blockId: BlockId) {
+        val buffer = buffers[blockId]
+        if (buffer != null) {
+            bufferManager.unpin(buffer)
+            pins.remove(blockId)
+            if (!pins.contains(blockId)) buffers.remove(blockId)
+        }
+    }
+
+    /**
+     * トランザクションに結び付けられてるバッファを管理からすべて外す
+     */
+    fun unpinAll() {
+        for (blockId in pins) {
+            val buffer = buffers[blockId]
+            if (buffer != null) bufferManager.unpin(buffer)
+        }
+        buffers.clear()
+        pins.clear()
     }
 }

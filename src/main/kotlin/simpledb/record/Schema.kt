@@ -1,24 +1,26 @@
 package simpledb.record
 
 class Schema {
-    val fields: MutableList<String> = mutableListOf()
-    private val info: MutableMap<String, FieldInfo> = mutableMapOf()
+    val fields = mutableListOf<String>()
+    private val info = mutableMapOf<String, FieldInfo>()
 
-    fun addField(fieldName: String, type: FieldType, length: Int) {
+    fun addField(fieldName: String, type: Int, length: Int) {
         fields.add(fieldName)
         info[fieldName] = FieldInfo(type, length)
     }
 
-    fun addIntField(name: String) {
-        addField(name, FieldType.INTEGER, 0)
+    fun addIntField(fieldName: String) {
+        addField(fieldName, java.sql.Types.INTEGER, 0)
     }
 
-    fun addStringField(name: String, length: Int) {
-        addField(name, FieldType.VARCHAR, length)
+    fun addStringField(fieldName: String, length: Int) {
+        addField(fieldName, java.sql.Types.VARCHAR, length)
     }
 
-    fun add(name: String, schema: Schema) {
-        addField(name, schema.type(name), schema.length(name))
+    fun add(fieldName: String, schema: Schema) {
+        val type = schema.type(fieldName) ?: return
+        val length = schema.length(fieldName) ?: return
+        addField(fieldName, type, length)
     }
 
     fun addAll(schema: Schema) {
@@ -27,24 +29,17 @@ class Schema {
         }
     }
 
-    fun length(name: String) = info[name]!!.length
-
-    fun type(name: String) = info[name]!!.type
-
-    fun hasField(name: String) = name in fields
-
-    data class FieldInfo(val type: FieldType, val length: Int)
-}
-
-enum class FieldType(val number:Int) {
-    INTEGER(0), VARCHAR(1);
-    companion object {
-        fun fieldTypeFactory(number: Int): FieldType =
-            when (number) {
-                0 -> FieldType.INTEGER
-                else -> FieldType.VARCHAR
-            }
+    fun hasField(fieldName: String): Boolean {
+        return fields.contains(fieldName)
     }
 
-}
+    fun type(fieldName: String): Int? {
+        return info[fieldName]?.type
+    }
 
+    fun length(fieldName: String): Int? {
+        return info[fieldName]?.length
+    }
+
+    class FieldInfo(val type: Int, val length: Int)
+}

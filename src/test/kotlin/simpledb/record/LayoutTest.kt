@@ -17,12 +17,12 @@ class LayoutTest : FunSpec({
 
         val actualOffsetA = layout.offset("A")
         val actualOffsetB = layout.offset("B")
-        val slotSize = layout.slotSize
+        val slotSize = layout.slotSize()
 
         print("A: $actualOffsetA, B: $actualOffsetB")
 
         actualOffsetA shouldBe 4
         actualOffsetB shouldBe 8
-        slotSize shouldBe 36
+        slotSize shouldBe 20
     }
 })

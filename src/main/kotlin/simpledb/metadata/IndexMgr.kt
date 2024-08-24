@@ -9,9 +9,9 @@ class IndexMgr(isNew: Boolean, private val tblmgr: TableMgr, private val statmgr
     init {
         if (isNew) {
             val sch = Schema().apply {
-                addStringField("indexname", TableMgr.MAX_NAME)
-                addStringField("tablename", TableMgr.MAX_NAME)
-                addStringField("fieldname", TableMgr.MAX_NAME)
+                addStringField("indexname", 16)
+                addStringField("tablename", 16)
+                addStringField("fieldname", 16)
             }
             tblmgr.createTable("idxcat", sch, tx)
         }
@@ -53,7 +53,7 @@ class IndexMgr(isNew: Boolean, private val tblmgr: TableMgr, private val statmgr
                     val fldname = ts.getString("fieldname")
                     val tblLayout = tblmgr.getLayout(tblname, tx)
                     val tblsi = statmgr.getStatInfo(tblname, tblLayout, tx)
-                    val ii = IndexInfo(idxname, fldname, tblLayout.schema, tx, tblsi)
+                    val ii = IndexInfo(idxname, fldname, tblLayout.schema(), tx, tblsi)
                     result[fldname] = ii
                 }
             }

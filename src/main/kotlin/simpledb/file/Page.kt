@@ -1,63 +1,62 @@
 package simpledb.file
 
 import java.nio.ByteBuffer
-import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 
-/*
- * holds the contents of a disk block
- * constructor creates a page that gets its memory from an operating system IO buffer.
- * second constructor creates a page that gets its memory from a Java array.
- */
 class Page {
-    private val DEFAULT_CHARSET: Charset = Charsets.UTF_8
-    private var byteBuffer: ByteBuffer
+    private var bb: ByteBuffer
+    private val charset = StandardCharsets.US_ASCII
 
     constructor(blockSize: Int) {
-        byteBuffer = ByteBuffer.allocateDirect(blockSize)
+        bb = ByteBuffer.allocateDirect(blockSize)
     }
 
-    constructor(bytes: ByteArray) : this(0) {
-        byteBuffer = ByteBuffer.wrap(bytes)
+    constructor(b: ByteArray) {
+        bb = ByteBuffer.wrap(b)
     }
 
-    fun getInt(offset: Int) = byteBuffer.getInt(offset)
+    fun getInt(offset: Int): Int {
+        return bb.getInt(offset)
+    }
 
-    fun setInt(offset: Int, n: Int) = byteBuffer.putInt(offset, n)
+    fun setInt(offset: Int, n: Int) {
+        bb.putInt(offset, n)
+    }
 
     fun getBytes(offset: Int): ByteArray {
-        byteBuffer.position(offset)
-        val length = byteBuffer.getInt()
+        bb.position(offset)
+        val length = bb.int
         val b = ByteArray(length)
-        byteBuffer.get(b)
+        bb.get(b)
         return b
     }
 
     fun setBytes(offset: Int, b: ByteArray) {
-        byteBuffer.position(offset)
-        byteBuffer.putInt(b.size)
-        byteBuffer.put(b)
+        bb.position(offset)
+        bb.putInt(b.size)
+        bb.put(b)
     }
 
     fun getString(offset: Int): String {
         val b = getBytes(offset)
-        return String(b, DEFAULT_CHARSET)
+        return String(b, charset)
     }
 
-    fun setString(offset: Int, string: String) {
-        val b = string.toByteArray()
+    fun setString(offset: Int, s: String) {
+        val b = s.toByteArray(charset)
         setBytes(offset, b)
     }
 
-    fun contents(): ByteBuffer {
-        byteBuffer.position(0)
-        return byteBuffer
+    companion object {
+        private val charset = StandardCharsets.US_ASCII
+        fun maxLength(strSize: Int): Int {
+            val bytesPerChar = charset.newEncoder().maxBytesPerChar()
+            return Integer.BYTES + (strSize * (bytesPerChar.toInt()))
+        }
     }
 
-    companion object {
-        private val CHARSET: Charset = Charsets.UTF_8
-        fun maxLength(strLen: Int): Int {
-            val bytePerChar = CHARSET.newEncoder().maxBytesPerChar()
-            return (Int.SIZE_BYTES + (strLen * bytePerChar)).toInt()
-        }
+    fun contents(): ByteBuffer {
+        bb.position(0)
+        return bb
     }
 }

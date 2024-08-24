@@ -16,10 +16,11 @@ class SimpleDB(private val dirName: String) {
     companion object {
         const val BUFFER_SIZE = 8
         const val BLOCK_SIZE = 400
-        const val LOG_FILE = "logfile"
+        const val LOG_FILE = "logfile.log"
     }
 
-    val fileMgr = FileMgr(dirName, BLOCK_SIZE)
+    val dbDirectory = File(dirName)
+    val fileMgr = FileMgr(dbDirectory, BLOCK_SIZE)
     val logMgr = LogMgr(fileMgr, LOG_FILE)
     val bufferMgr = simpledb.buffer.BufferMgr(fileMgr, logMgr, BUFFER_SIZE)
     lateinit var planner: Planner
@@ -41,6 +42,6 @@ class SimpleDB(private val dirName: String) {
     }
 
     fun newTransaction(): Transaction {
-        return Transaction(fileMgr, logMgr, bufferMgr)
+        return Transaction(fileMgr, bufferMgr, logMgr)
     }
 }

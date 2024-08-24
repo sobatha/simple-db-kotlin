@@ -3,71 +3,85 @@ package simpledb.file
 import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
+import java.lang.RuntimeException
 
-class FileMgr(private val dbName: String, val blockSize: Int) {
-    private val openFiles: MutableMap<String, RandomAccessFile> = mutableMapOf()
-    val homedir = System.getProperty("user.home");
-    val dbDirectory = File(homedir, dbName);
-    val isNew = !dbDirectory.exists()
+class FileMgr(
+    val dbDirectory: File,
+    val blockSize: Int,
+) {
+    var isNew: Boolean = !dbDirectory.exists()
+    private val openFiles: MutableMap<String, RandomAccessFile> = mutableMapOf<String, RandomAccessFile>()
 
     init {
-        if (isNew) dbDirectory.mkdirs()
+        // create the directory if the database is new
+        if (isNew) {
+            dbDirectory.mkdirs()
+        }
 
-        dbDirectory.list()?.forEach {
-            if (it.startsWith("temp")) File(dbDirectory, it).delete()
+        // remove any leftover temporary tables
+        val filenames = dbDirectory.list()
+        if (filenames != null) {
+            for (filename in filenames) {
+                if (filename.startsWith("temp")) {
+                    File(dbDirectory, filename).delete()
+                }
+            }
         }
     }
+
     @Synchronized
-    fun read(blk: BlockId, p: Page) {
+    fun read(blockId: BlockId, page: Page) {
         try {
-            val f = getFile(blk.fileName)
-            f.seek((blk.number * blockSize).toLong())
-            f.channel.read(p.contents())
+            val f = getFile(blockId.fileName)
+            f.seek((blockId.number * blockSize).toLong())
+            f.channel.read(page.contents())
         } catch (e: IOException) {
-            throw RuntimeException("cannot read block $blk $e")
+            throw RuntimeException("cannot write block $blockId")
         }
     }
 
     @Synchronized
-    fun write(blk: BlockId, p: Page) {
+    fun write(blockId: BlockId, page: Page) {
         try {
-            val f = getFile(blk.fileName)
-            f.seek((blk.number * blockSize).toLong())
-            f.channel.write(p.contents())
+            val f = getFile(blockId.fileName)
+            f.seek((blockId.number * blockSize).toLong())
+            f.channel.write(page.contents())
         } catch (e: IOException) {
-            throw RuntimeException("cannot write block $blk")
+            throw RuntimeException("cannot write block $blockId")
         }
     }
 
     @Synchronized
-    fun append(fileName: String): BlockId {
-        val newBlkNum = length(fileName)
-        val blk = BlockId(fileName, newBlkNum)
+    fun append(filename: String): BlockId {
+        val newBlockNumber = filename.length
+        val blockId = BlockId(filename, newBlockNumber)
         val b = ByteArray(blockSize)
         try {
-            val f = getFile(blk.fileName)
-            f.seek((blk.number * blockSize).toLong())
+            val f = getFile(blockId.fileName)
+            f.seek((blockId.number * blockSize).toLong())
             f.write(b)
         } catch (e: IOException) {
-            throw RuntimeException("cannot append block $blk")
+            throw RuntimeException("cannot append block $blockId")
         }
-        return blk
+        return blockId
     }
-    private fun getFile(fileName: String): RandomAccessFile {
-        return openFiles[fileName] ?: run {
-            val dbTable = File(dbDirectory, fileName)
-            val newFile = RandomAccessFile(dbTable, "rws")
-            openFiles[fileName] = newFile
-            newFile
+
+    fun length(filename: String): Int {
+        try {
+            val f = getFile(filename)
+            return (f.length() / blockSize).toInt()
+        } catch (e: IOException) {
+            throw RuntimeException("cannot access $filename")
         }
     }
 
-    fun length(fileName: String): Int {
-        try {
-            val f = getFile(fileName)
-            return (f.length() / blockSize).toInt()
-        } catch (e: IOException) {
-            throw RuntimeException("cannot access $fileName")
+    private fun getFile(filename: String): RandomAccessFile {
+        var f = openFiles[filename]
+        if (f == null) {
+            val dbTable = File(dbDirectory, filename)
+            f = RandomAccessFile(dbTable, "rws")
+            openFiles[filename] = f
         }
+        return f
     }
 }

@@ -1,39 +1,56 @@
 package simpledb.metadata
 
+import simpledb.record.Layout
+import simpledb.record.Schema
 import simpledb.tx.Transaction
-import simpledb.record.*
 
-class MetadataMgr(isNew: Boolean, tx: Transaction) {
-    private val tblmgr: TableMgr = TableMgr(isNew, tx)
-    private val viewmgr: ViewMgr = ViewMgr(isNew, tblmgr, tx)
-    private val statmgr: StatMgr = StatMgr(tblmgr, tx)
-    private val idxmgr: IndexMgr = IndexMgr(isNew, tblmgr, statmgr, tx)
-
-    fun createTable(tblname: String, sch: Schema, tx: Transaction) {
-        tblmgr.createTable(tblname, sch, tx)
+/**
+ * テーブル、ビュー、インデックス、統計情報のメタデータを管理するクラス
+ * メタデータを作成、保存するメソッド、取得するメソッドを持つ
+ */
+class MetadataMgr(
+    private val isNew: Boolean,
+    private val transaction: Transaction,
+) {
+    companion object {
+        lateinit var tableMgr: TableMgr
+        lateinit var viewMgr: ViewMgr
+        lateinit var statisticsMgr: StatMgr
+        lateinit var indexMgr: IndexMgr
     }
 
-    fun getLayout(tblname: String, tx: Transaction): Layout {
-        return tblmgr.getLayout(tblname, tx)
+    init {
+        tableMgr = TableMgr(isNew, transaction)
+        viewMgr = ViewMgr(isNew, tableMgr, transaction)
+        statisticsMgr = StatMgr(tableMgr, transaction)
+        indexMgr = IndexMgr(isNew, tableMgr, statisticsMgr, transaction)
     }
 
-    fun createView(viewname: String, viewdef: String, tx: Transaction) {
-        viewmgr.createView(viewname, viewdef, tx)
+    fun createTable(tableName: String, schema: Schema, tx: Transaction) {
+        tableMgr.createTable(tableName, schema, tx)
     }
 
-    fun getViewDef(viewname: String, tx: Transaction): String? {
-        return viewmgr.getViewDef(viewname, tx)
+    fun getLayout(tableName: String, tx: Transaction): Layout {
+        return tableMgr.getLayout(tableName, tx)
     }
 
-    fun createIndex(idxname: String, tblname: String, fldname: String, tx: Transaction) {
-        idxmgr.createIndex(idxname, tblname, fldname, tx)
+    fun createView(viewName: String, viewDef: String, tx: Transaction) {
+        viewMgr.createView(viewName, viewDef, tx)
     }
 
-    fun getIndexInfo(tblname: String, tx: Transaction): Map<String, IndexInfo> {
-        return idxmgr.getIndexInfo(tblname, tx)
+    fun getViewDef(viewName: String, tx: Transaction): String? {
+        return viewMgr.getViewDef(viewName, tx)
     }
 
-    fun getStatInfo(tblname: String, layout: Layout, tx: Transaction): StatInfo {
-        return statmgr.getStatInfo(tblname, layout, tx)
+    fun createIndex(indexName: String, tableName: String, fieldName: String, tx: Transaction) {
+        indexMgr.createIndex(indexName, tableName, fieldName, tx)
+    }
+
+    fun getIndexInformation(tableName: String, tx: Transaction): Map<String, IndexInfo> {
+        return indexMgr.getIndexInfo(tableName, tx)
+    }
+
+    fun getStatisticsInformation(tableName: String, layout: Layout, tx: Transaction): StatInfo {
+        return statisticsMgr.getStatInfo(tableName, layout, tx)
     }
 }

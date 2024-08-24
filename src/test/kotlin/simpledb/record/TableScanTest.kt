@@ -5,7 +5,7 @@ import simpledb.server.SimpleDB
 object TableScanTest {
     @JvmStatic
     fun main(args: Array<String>) {
-        val db = SimpleDB("tabletest")
+        val db = SimpleDB("tabletest9")
         val tx = db.newTransaction()
 
         val sch = Schema().apply {
@@ -14,7 +14,7 @@ object TableScanTest {
         }
         val layout = Layout(sch)
 
-        for (fldname in layout.schema.fields) {
+        for (fldname in layout.schema().fields) {
             val offset = layout.offset(fldname)
             println("$fldname has offset $offset")
         }
@@ -35,6 +35,7 @@ object TableScanTest {
         while (tableScan.next()) {
             val a = tableScan.getInt("A")
             val b = tableScan.getString("B")
+            println("reading slot ${tableScan.getRid()}: {$a, $b}")
             if (a < 25) {
                 count++
                 println("slot ${tableScan.getRid()}: {$a, $b}")

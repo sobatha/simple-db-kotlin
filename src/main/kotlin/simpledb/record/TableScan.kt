@@ -1,128 +1,129 @@
 package simpledb.record
 
-import simpledb.query.Constant
 import simpledb.file.BlockId
+import simpledb.query.Constant
 import simpledb.query.UpdateScan
 import simpledb.tx.Transaction
+import java.lang.RuntimeException
 
 class TableScan(
     private val transaction: Transaction,
-    tableName: String,
-    private val layout: Layout
+    private val tableName: String,
+    private val layout: Layout,
 ) : UpdateScan {
     private var recordPage: RecordPage? = null
-    private val filename: String = "$tableName.tbl"
-    private var currentslot: Int = -1
+    private var fileName: String = ""
+    private var currentSlot: Int = 0
 
     init {
-        if (transaction.size(filename) == 0) {
+        fileName = "$tableName.tbl"
+        if (transaction.size(fileName) == 0) {
             moveToNewBlock()
         } else {
             moveToBlock(0)
         }
     }
 
-    // Methods that implement Scan
+    override fun close() {
+        if (recordPage != null) transaction.unpin(recordPage!!.blockId)
+    }
 
     override fun beforeFirst() {
         moveToBlock(0)
     }
 
     override fun next(): Boolean {
-        currentslot = recordPage!!.nextAfter(currentslot)
-        while (currentslot < 0) {
-            if (atLastBlock()) return false
-            moveToBlock(recordPage!!.blockId.number + 1)
-            currentslot = recordPage!!.nextAfter(currentslot)
+        currentSlot = recordPage!!.nextAfter(currentSlot)
+        while (currentSlot < 0) {
+            // 現在のrecordPageに次のレコードがない場合
+            if (atLastBlock()) return false // ファイル末尾に到達
+            moveToBlock(recordPage!!.blockId.number+1)
+            currentSlot = recordPage!!.nextAfter(currentSlot)
         }
         return true
     }
 
-    override fun getInt(fldname: String): Int {
-        return recordPage!!.getInt(currentslot, fldname)!!
+    override fun getInt(fieldName: String): Int {
+        return recordPage!!.getInt(currentSlot, fieldName)
     }
 
-    override fun getString(fldname: String): String {
-        return recordPage!!.getString(currentslot, fldname)!!
+    override fun getString(fieldName: String): String {
+        return recordPage!!.getString(currentSlot, fieldName)
     }
 
-    override fun getVal(fldname: String): Constant {
-        return when (layout.schema.type(fldname)) {
-         FieldType.INTEGER -> Constant(getInt(fldname))
-         FieldType.VARCHAR -> Constant(getString(fldname))
+    override fun getVal(fieldName: String): Constant {
+        return if (layout.schema().type(fieldName) == java.sql.Types.INTEGER) {
+            Constant(getInt(fieldName))
+        } else {
+            Constant(getString(fieldName))
         }
     }
 
-    override fun hasField(fldname: String): Boolean {
-        return layout.schema.hasField(fldname)
+    override fun hasField(fieldName: String): Boolean {
+        return layout.schema().hasField(fieldName)
     }
 
-    override fun close() {
-        if (recordPage != null) transaction.unpin(recordPage!!.blockId)
+    override fun setInt(fieldName: String, value: Int) {
+        recordPage!!.setInt(currentSlot, fieldName, value)
     }
 
-    // Methods that implement UpdateScan
-
-    override fun setInt(fldname: String, value: Int) {
-        recordPage!!.setInt(currentslot, fldname, value)
+    override fun setString(fieldName: String, value: String) {
+        recordPage!!.setString(currentSlot, fieldName, value)
     }
 
-    override fun setString(fldname: String, value: String) {
-        recordPage!!.setString(currentslot, fldname, value)
-    }
-
-    override fun setVal(fldname: String, value: Constant) {
-        when (layout.schema.type(fldname)) {
-            FieldType.INTEGER -> setInt(fldname, value.asInt()!!)
-            FieldType.VARCHAR -> setString(fldname, value.asString()!!)
+    override fun setVal(fieldName: String, value: Constant) {
+        if (layout.schema().type(fieldName) == java.sql.Types.INTEGER) {
+            val intValue = value.asInt() ?: throw RuntimeException("null value")
+            setInt(fieldName, intValue)
+        } else {
+            val stringValue = value.asString() ?: throw RuntimeException("null value")
+            setString(fieldName, stringValue)
         }
     }
 
     override fun insert() {
-        currentslot = recordPage!!.insertAfter(currentslot)
-        while (currentslot < 0) {
+        currentSlot = recordPage!!.insertAfter(currentSlot)
+        while (currentSlot < 0) {
             if (atLastBlock()) {
                 moveToNewBlock()
             } else {
-                moveToBlock(recordPage!!.blockId.number + 1)
+                moveToBlock(recordPage!!.blockId.number+1)
             }
-            currentslot = recordPage!!.insertAfter(currentslot)
+            currentSlot = recordPage!!.insertAfter(currentSlot)
         }
     }
 
     override fun delete() {
-        recordPage!!.delete(currentslot)
+        recordPage!!.delete(currentSlot)
     }
 
     override fun moveToRid(rid: RID) {
         close()
-        val blk = BlockId(filename, rid.blockNumber)
-        recordPage = RecordPage(transaction, blk, layout)
-        currentslot = rid.slot
+        val blockId = BlockId(fileName, rid.blockNumber)
+        recordPage = RecordPage(transaction, blockId, layout)
+        currentSlot = rid.slot
     }
 
     override fun getRid(): RID {
-        return RID(recordPage!!.blockId.number, currentslot)
+        return RID(recordPage!!.blockId.number, currentSlot)
     }
 
-    // Private auxiliary methods
-
-    private fun moveToBlock(blknum: Int) {
+    private fun moveToBlock(blockNumber: Int) {
         close()
-        val blk = BlockId(filename, blknum)
-        recordPage = RecordPage(transaction, blk, layout)
-        currentslot = -1
+        val blockId = BlockId(fileName, blockNumber)
+        recordPage = RecordPage(transaction, blockId, layout)
+        currentSlot = -1
     }
 
     private fun moveToNewBlock() {
         close()
-        val blk = transaction.append(filename)
-        recordPage = RecordPage(transaction, blk, layout)
+        val blockId = transaction.append(fileName)
+        recordPage = RecordPage(transaction, blockId, layout)
         recordPage!!.format()
-        currentslot = -1
+        currentSlot = -1
     }
 
     private fun atLastBlock(): Boolean {
-        return recordPage!!.blockId.number == transaction.size(filename) - 1
+        return recordPage!!.blockId.number == (transaction.size(fileName) - 1)
     }
 }
