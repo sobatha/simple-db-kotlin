@@ -12,7 +12,7 @@ class ViewMgr(isNew: Boolean, private val tblMgr: TableMgr, tx: Transaction) {
     init {
         if (isNew) {
             val sch = Schema().apply {
-                addStringField("viewname", TableMgr.MAX_NAME)
+                addStringField("viewname", 16)
                 addStringField("viewdef", MAX_VIEWDEF)
             }
             tblMgr.createTable("viewcat", sch, tx)

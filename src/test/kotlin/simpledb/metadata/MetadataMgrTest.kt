@@ -17,12 +17,12 @@ fun main() {
     // Part 1: Table Metadata
     mdm.createTable("MyTable", sch, tx)
     val layout = mdm.getLayout("MyTable", tx)
-    val size = layout.slotSize
-    val sch2 = layout.schema
+    val size = layout.slotSize()
+    val sch2 = layout.schema()
     println("MyTable has slot size $size")
     println("Its fields are:")
     for (fldname in sch2.fields) {
-        val type = if (sch2.type(fldname) == FieldType.INTEGER) {
+        val type = if (sch2.type(fldname) == java.sql.Types.INTEGER) {
             "int"
         } else {
             val strlen = sch2.length(fldname)
@@ -41,7 +41,7 @@ fun main() {
         }
         ts.close()
     }
-    val si = mdm.getStatInfo("MyTable", layout, tx)
+    val si = mdm.getStatisticsInformation("MyTable", layout, tx)
     println("B(MyTable) = ${si.blocksAccessed()}")
     println("R(MyTable) = ${si.recordsOutput()}")
     println("V(MyTable,A) = ${si.distinctValues("A")}")
@@ -56,7 +56,7 @@ fun main() {
     // Part 4: Index Metadata
     mdm.createIndex("indexA", "MyTable", "A", tx)
     mdm.createIndex("indexB", "MyTable", "B", tx)
-    val idxmap = mdm.getIndexInfo("MyTable", tx)
+    val idxmap = mdm.getIndexInformation("MyTable", tx)
 
     idxmap["A"]?.let { ii ->
         println("B(indexA) = ${ii.blocksAccessed()}")

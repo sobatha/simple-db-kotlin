@@ -1,7 +1,6 @@
 package simpledb.jdbc.embdded
 
 import simpledb.jdbc.ResultSetMetaDataAdapter
-import simpledb.record.FieldType
 import simpledb.record.Schema
 
 class EmbeddedMetaData(
@@ -17,13 +16,13 @@ class EmbeddedMetaData(
 
     override fun getColumnType(column: Int): Int {
         val fieldName = getColumnName(column)
-        return schema.type(fieldName).number ?: throw RuntimeException("null error")
+        return schema.type(fieldName) ?: throw RuntimeException("null error")
     }
 
     override fun getColumnDisplaySize(column: Int): Int {
         val fieldName = getColumnName(column)
         val fieldType = schema.type(fieldName) ?: throw RuntimeException("null error")
-        val fieldLength = if (fieldType == FieldType.INTEGER) {
+        val fieldLength = if (fieldType == java.sql.Types.INTEGER) {
             6
         } else {
             schema.length(fieldName)

@@ -10,9 +10,11 @@ class Parser(s: String) {
 
     fun field(): String = lex.eatId()
 
-    fun constant(): Constant =
-        if (lex.matchStringConstant()) Constant(lex.eatStringConstant())
+    fun constant(): Constant {
+//        println("string: ${lex.matchStringConstant()} , int: ${lex.matchIntConstant()}")
+        return if (lex.matchStringConstant()) Constant(lex.eatStringConstant())
         else Constant(lex.eatIntConstant())
+    }
 
     fun expression(): Expression =
         if (lex.matchId()) Expression(field())
@@ -122,6 +124,7 @@ class Parser(s: String) {
             lex.eatDelimiter(',')
             L.addAll(fieldList())
         }
+//        println("field list: $L")
         return L
     }
 
@@ -132,6 +135,7 @@ class Parser(s: String) {
             lex.eatDelimiter(',')
             L.addAll(constList())
         }
+//        println("const list: $L")
         return L
     }
 

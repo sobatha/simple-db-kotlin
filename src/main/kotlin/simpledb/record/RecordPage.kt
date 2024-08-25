@@ -6,60 +6,98 @@ import simpledb.tx.Transaction
 class RecordPage(
     private val transaction: Transaction,
     val blockId: BlockId,
-    private val layout: Layout
+    private val layout: Layout,
 ) {
-    init { transaction.pin(blockId) }
+    init {
+        transaction.pin(blockId)
+    }
 
-    fun getInt(slot: Int, fieldName: String) =
-        transaction.getInt(blockId, offset(slot) + layout.offset(fieldName)!!)
+    fun getInt(slot: Int, fieldName: String): Int {
+        val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
+        val fieldPosition = offset(slot) + layoutOffset
+        return transaction.getInt(blockId, fieldPosition) ?: throw RecordPageException()
+    }
 
-    fun getString(slot: Int, fieldName: String) =
-        transaction.getString(blockId, offset(slot) + layout.offset(fieldName)!!)
+    fun getString(slot: Int, fieldName: String): String {
+        val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
+        val fieldPosition = offset(slot) + layoutOffset
+        return transaction.getString(blockId, fieldPosition) ?: throw RecordPageException()
+    }
 
-    fun setInt(slot: Int, fieldName: String, value: Int) =
-        transaction.setInt(blockId, offset(slot) + layout.offset(fieldName)!!, value)
+    fun setInt(slot: Int, fieldName: String, value: Int) {
+        val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
+        val fieldPosition = offset(slot) + layoutOffset
+        transaction.setInt(blockId, fieldPosition, value, true)
+    }
 
-    fun setString(slot: Int, fieldName: String, value: String) =
-        transaction.setString(blockId, offset(slot) + layout.offset(fieldName)!!, value)
+    fun setString(slot: Int, fieldName: String, value: String) {
+        val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
+        val fieldPosition = offset(slot) + layoutOffset
+        transaction.setString(blockId, fieldPosition, value, true)
+    }
 
-    fun delete(slot: Int) = setFlag(slot, DeleteFlag.EMPTY)
+    fun delete(slot: Int) {
+        setFlag(slot, RecordPageState.EMPTY.id)
+    }
 
     fun format() {
         var slot = 0
         while (isValidSlot(slot)) {
-            transaction.setInt(blockId, offset(slot), DeleteFlag.EMPTY.value, false)
-            val schema = layout.schema
-            schema.fields.forEach {name ->
-                val fieldPosition = offset(slot) + layout.offset(name)!!
-                when (schema.type(name)) {
-                    FieldType.VARCHAR -> transaction.setString(blockId, fieldPosition, "", false)
-                    FieldType.INTEGER -> transaction.setInt(blockId, fieldPosition, 0, false)
+            transaction.setInt(blockId, offset(slot), RecordPageState.EMPTY.id, false)
+            val schema = layout.schema()
+            for (fieldName in schema.fields) {
+                val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
+                val fieldPosition = offset(slot) + layoutOffset
+                if (schema.type(fieldName) == java.sql.Types.INTEGER) {
+                    transaction.setInt(blockId, fieldPosition, 0, false)
+                } else {
+                    transaction.setString(blockId, fieldPosition, "", false)
                 }
             }
             slot++
         }
     }
 
-    fun nextAfter(slot: Int) = searchAfter(slot, DeleteFlag.USED)
+    fun nextAfter(slot: Int): Int {
+        return searchAfter(slot, RecordPageState.USED.id)
+    }
 
     fun insertAfter(slot: Int): Int {
-        val newSlot = searchAfter(slot, DeleteFlag.EMPTY)
-        if (newSlot >= 0) setFlag(newSlot, DeleteFlag.USED)
+        val newSlot = searchAfter(slot, RecordPageState.EMPTY.id)
+        if (newSlot >= 0) setFlag(newSlot, RecordPageState.USED.id)
         return newSlot
     }
 
-    private fun searchAfter(slot: Int, flag: RecordPage.DeleteFlag): Int {
-        var localSlot = slot + 1
-        while (isValidSlot(localSlot)) {
-            if (transaction.getInt(blockId, offset(localSlot)) == flag.value)  return localSlot
-            localSlot++
+    private fun searchAfter(slot: Int, flag: Int): Int {
+        var nextSlot = slot + 1
+        while (isValidSlot(nextSlot)) {
+            // slot = [state|record]の構造なのでnextSlotの位置はflag
+            val transactionInt = transaction.getInt(blockId, offset(nextSlot))
+            if (transactionInt != null && transactionInt == flag) {
+                return nextSlot
+            }
+            nextSlot++
         }
         return -1
     }
 
-    fun isValidSlot(slot: Int) = offset(slot+1) <= transaction.blkSize()
+    private fun isValidSlot(slot: Int): Boolean {
+        // 受け取ったスロットの次のスロットの位置がトランザクションのブロックのサイズより小さいならtrue
+        return offset(slot+1) <= transaction.blockSize()
+    }
 
-    fun setFlag(slot: Int, flag: DeleteFlag) = transaction.setInt(blockId, offset(slot), flag.value, true)
-    fun offset(slot: Int) = slot * layout.slotSize
-    enum class DeleteFlag(val value: Int) { EMPTY(0), USED(-1) }
+    private fun setFlag(slot: Int, flag: Int) {
+        transaction.setInt(blockId, offset(slot), flag, true)
+    }
+
+    private fun offset(slot: Int): Int {
+        return slot * layout.slotSize()
+    }
 }
+
+enum class RecordPageState(val id: Int) {
+    EMPTY(0),
+    USED(1),
+}
+
+class RecordPageException: RuntimeException() {}

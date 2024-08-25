@@ -12,11 +12,11 @@ fun main() {
     buffs[1] = bufferMgr.pin(BlockId("buffertest", 1))
     buffs[2] = bufferMgr.pin(BlockId("buffertest", 2))
     buffs[1]?.let { bufferMgr.unpin(it) }
-    println("unpinned buffer 1 ${buffs[1]?.block}")
+    println("unpinned buffer 1 ${buffs[1]?.blockId()}")
 
     buffs[3] = bufferMgr.pin(BlockId("buffertest", 3))
     buffs[4] = bufferMgr.pin(BlockId("buffertest", 4))
-    println("available buffers: ${bufferMgr.numAvailable}")
+    println("available buffers: ${bufferMgr.available()}")
 
     try {
         bufferMgr.pin(BlockId("buffertest", 3))

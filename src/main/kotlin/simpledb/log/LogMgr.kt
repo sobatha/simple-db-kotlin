@@ -34,8 +34,8 @@ class LogMgr(
     fun append(rec: ByteArray): Int {
         var boundary = logPage.getInt(0)
         val recSize = rec.size
-        val bytesNeeded = recSize + Int.SIZE_BYTES
-        if ((boundary - bytesNeeded) < Int.SIZE_BYTES) {
+        val bytesNeeded = recSize + Integer.BYTES
+        if ((boundary - bytesNeeded) < Integer.BYTES) {
             forceFlush()
             currentBlock = appendNewBlock()
             boundary = logPage.getInt(0)

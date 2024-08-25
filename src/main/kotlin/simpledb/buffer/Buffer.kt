@@ -5,39 +5,58 @@ import simpledb.file.FileMgr
 import simpledb.file.Page
 import simpledb.log.LogMgr
 
-class Buffer(private val fileMgr: FileMgr, private val logMgr: LogMgr) {
-    val contents = Page(fileMgr.blockSize)
-    var block: BlockId? = null
-        private set
-    private var pins = 0
-    var modifyingTx = 0
-        private set
-    private var lsn = 0
-    val isPinned: Boolean
-        get() = pins > 0
 
-    fun setModified(txNum: Int, lsn: Int) {
-        modifyingTx = txNum
-        if (lsn >= 0) this.lsn = lsn
+class Buffer(
+    val fm: FileMgr,
+    val lm: LogMgr,
+) {
+    private var contents: Page = Page(fm.blockSize)
+    private var blockId: BlockId? = null
+    private var pins = 0
+    private var txnum = -1
+    private var lsn = -1
+
+    fun contents(): Page {
+        return contents
+    }
+
+    fun blockId(): BlockId? {
+        return blockId
+    }
+
+    fun setModified(newTxnum: Int, newLsn: Int) {
+        txnum = newTxnum
+        if (lsn >= 0) lsn = newLsn
+    }
+
+    fun isPinned(): Boolean {
+        return pins > 0
+    }
+
+    fun modifyingTx(): Int {
+        return txnum
     }
 
     fun assignToBlock(b: BlockId) {
         flush()
-        block = b
-        fileMgr.read(b, contents)
+        blockId = b
+        fm.read(blockId!!, contents)
         pins = 0
     }
 
     fun flush() {
-        if (modifyingTx >= 0 && block != null) {
-            logMgr.flush(lsn)
-            fileMgr.write(block!!, contents)
-            pins = 0
+        if (txnum >= 0) {
+            lm.flush(lsn)
+            fm.write(blockId!!, contents)
+            txnum = -1
         }
     }
 
-    fun pin() = pins++
+    fun pin() {
+        pins++
+    }
 
-    fun unpin() = pins--
-
+    fun unpin() {
+        pins--
+    }
 }

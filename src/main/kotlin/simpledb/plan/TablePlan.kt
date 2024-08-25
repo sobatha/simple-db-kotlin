@@ -15,7 +15,7 @@ class TablePlan(
 ) : Plan {
     private var layout: Layout = metadataManager.getLayout(tableName, transaction)
     private var statisticsInformation: StatInfo =
-        metadataManager.getStatInfo(tableName, layout, transaction)
+        metadataManager.getStatisticsInformation(tableName, layout, transaction)
 
     override fun open(): Scan {
         return TableScan(transaction, tableName, layout)
@@ -34,6 +34,6 @@ class TablePlan(
     }
 
     override fun schema(): Schema {
-        return layout.schema
+        return layout.schema()
     }
 }

@@ -1,87 +1,89 @@
 package simpledb.metadata
 
-import simpledb.record.FieldType
 import simpledb.record.Layout
 import simpledb.record.Schema
 import simpledb.record.TableScan
 import simpledb.tx.Transaction
+import java.lang.RuntimeException
 
-class TableMgr(private val isNew: Boolean, val transaction: Transaction) {
-    private val tableCatalogLayout: Layout
-    private val fieldCatalogLayout: Layout
+const val MAX_NAME = 16
+
+class TableMgr(
+    private val isNew: Boolean,
+    private val transaction: Transaction,
+) {
+    private var tableCatalogLayout: Layout
+    private var fieldCatalogLayout: Layout
 
     init {
-        val tableCatalogSchema = Schema().apply {
-            addStringField("tableName", MAX_NAME)
-            addIntField("slotSize")
-        }
+        val tableCatalogSchema = Schema()
+        tableCatalogSchema.addStringField("tablename", MAX_NAME)
+        tableCatalogSchema.addIntField("slotsize")
         tableCatalogLayout = Layout(tableCatalogSchema)
 
-        val fieldCatalogSchema = Schema().apply {
-            addStringField("tableName", MAX_NAME)
-            addStringField("fieldName", MAX_NAME)
-            addIntField("type")
-            addIntField("length")
-            addIntField("offset")
-        }
+        val fieldCatalogSchema = Schema()
+        fieldCatalogSchema.addStringField("tablename", MAX_NAME)
+        fieldCatalogSchema.addStringField("fieldname", MAX_NAME)
+        fieldCatalogSchema.addIntField("type")
+        fieldCatalogSchema.addIntField("length")
+        fieldCatalogSchema.addIntField("offset")
         fieldCatalogLayout = Layout(fieldCatalogSchema)
 
         if (isNew) {
-            createTable("tableCatalog", tableCatalogSchema, transaction)
-            createTable("fieldCatalog", fieldCatalogSchema, transaction)
+            createTable("tablecatalog", tableCatalogSchema, transaction)
+            createTable("fieldcatalog", fieldCatalogSchema, transaction)
         }
     }
 
-    fun createTable(tableName: String, schema: Schema, transaction: Transaction) {
+    fun createTable(tableName: String, schema: Schema, tx: Transaction) {
         val layout = Layout(schema)
-        TableScan(transaction, "tableCatalog", tableCatalogLayout).apply {
-            insert()
-            setString("tableName", tableName)
-            setInt("slotSize", layout.slotSize)
-            close()
-        }
 
-        val tableScan = TableScan(transaction, "fieldCatalog", fieldCatalogLayout)
-        schema.fields.forEach { field ->
-            tableScan.apply {
-                insert()
-                setString("tableName", tableName)
-                setString("fieldName", field)
-                setInt("type", schema.type(field).number)
-                setInt("length", schema.length(field))
-                setInt("offset", layout.offset(field)!!)
-            }
+        val tableCatalog = TableScan(tx, "tablecatalog", tableCatalogLayout)
+        tableCatalog.insert()
+        tableCatalog.setString("tablename", tableName)
+        tableCatalog.setInt("slotsize", layout.slotSize())
+        tableCatalog.close()
+
+        val fieldCatalog = TableScan(tx, "fieldcatalog", fieldCatalogLayout)
+        for (fieldName in schema.fields) {
+            fieldCatalog.insert()
+            fieldCatalog.setString("tablename", tableName)
+            fieldCatalog.setString("fieldname", fieldName)
+            val schemaType = schema.type(fieldName) ?: throw RuntimeException("null schema type")
+            fieldCatalog.setInt("type", schemaType)
+            val schemaLength = schema.length(fieldName) ?: throw RuntimeException("null schema type")
+            fieldCatalog.setInt("length", schemaLength)
+            val layoutOffset = layout.offset(fieldName) ?: throw RuntimeException("null schema type")
+            fieldCatalog.setInt("offset", layoutOffset)
         }
-        tableScan.close()
+        fieldCatalog.close()
     }
 
-    fun getLayout(tableName: String, transaction: Transaction): Layout {
+    fun getLayout(tableName: String, tx: Transaction): Layout {
+        // テーブルのスロットサイズ
         var size = -1
-        val tableCatalog = TableScan(transaction, "tableCatalog", tableCatalogLayout)
+        val tableCatalog = TableScan(tx, "tablecatalog", tableCatalogLayout)
         while (tableCatalog.next()) {
-            if (tableCatalog.getString("tableName") == tableName) {
-                size = tableCatalog.getInt("slotSize")
+            if (tableCatalog.getString("tablename") == tableName) {
+                size = tableCatalog.getInt("slotsize")
                 break
             }
         }
+        tableCatalog.close()
         val schema = Schema()
         val offsets = mutableMapOf<String, Int>()
-        val fieldCatalog = TableScan(transaction, "fieldCatalog", fieldCatalogLayout)
+        val fieldCatalog = TableScan(tx, "fieldcatalog", fieldCatalogLayout)
         while (fieldCatalog.next()) {
-            if (fieldCatalog.getString("tableName") == tableName) {
-                val fieldName = fieldCatalog.getString("fieldName")
-                val fieldLength = fieldCatalog.getInt("length")
+            if (fieldCatalog.getString("tablename") == tableName) {
+                val fieldName = fieldCatalog.getString("fieldname")
                 val fieldType = fieldCatalog.getInt("type")
+                val fieldLength = fieldCatalog.getInt("length")
                 val offset = fieldCatalog.getInt("offset")
                 offsets[fieldName] = offset
-                schema.addField(fieldName, FieldType.fieldTypeFactory(fieldType), fieldLength)
+                schema.addField(fieldName, fieldType, fieldLength)
             }
         }
         fieldCatalog.close()
         return Layout(schema, offsets, size)
-    }
-
-    companion object {
-        const val MAX_NAME = 16
     }
 }

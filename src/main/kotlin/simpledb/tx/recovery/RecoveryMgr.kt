@@ -29,14 +29,14 @@ class RecoveryMgr(
     }
 
     fun setInt(buffer: Buffer, offset: Int, value: Int): Int {
-        val oldVal = buffer.contents.getInt(offset)
-        val blk = buffer.block!!
+        val oldVal = buffer.contents().getInt(offset)
+        val blk = buffer.blockId()!!
         return SetIntRecord.writeToLog(logMgr, txNum, blk, offset, oldVal)
     }
 
     fun setString(buffer: Buffer, offset: Int, value: String): Int {
-        val oldVal = buffer.contents.getString(offset)
-        val blk = buffer.block!!
+        val oldVal = buffer.contents().getString(offset)
+        val blk = buffer.blockId()!!
         return SetStringRecord.writeToLog(logMgr, txNum, blk, offset, oldVal)
     }
 

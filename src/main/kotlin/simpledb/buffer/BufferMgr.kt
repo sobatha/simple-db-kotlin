@@ -4,73 +4,93 @@ import simpledb.file.BlockId
 import simpledb.file.FileMgr
 import simpledb.log.LogMgr
 
-class BufferMgr(val fileMgr: FileMgr, val logMgr: LogMgr, var numBuff: Int) {
-    private val bufferPool: MutableList<Buffer> = mutableListOf()
-    @Volatile
-    var numAvailable = numBuff
-        private set
-
-    private val MAX_TIME = 10000 // 10seconds for wait limits
+class BufferMgr(
+    val fm: FileMgr,
+    val lm: LogMgr,
+    var numBuffers: Int,
+) {
+    private val bufferPool: MutableList<Buffer> = mutableListOf<Buffer>()
+    private var numAvailable = numBuffers
+    private val MAX_TIME: Long = 10000 // 10 seconds
     private val lock = java.lang.Object()
 
     init {
-        bufferPool.addAll((0 until numBuff).map { Buffer(fileMgr, logMgr) })
-    }
-
-    fun waitingTooLong(startTime: Long) = System.currentTimeMillis() - startTime > MAX_TIME
-
-    @Synchronized
-    fun flushAll(modifiedCount: Int) {
-        bufferPool
-            .filter { it.modifyingTx == modifiedCount }
-            .map { it.flush() }
+        for (i in 0..numBuffers) {
+            bufferPool.add(i, Buffer(fm, lm))
+        }
     }
 
     @Synchronized
+    fun available(): Int {
+        return numAvailable
+    }
+
+    @Synchronized
+    fun flushAll(txnum: Int) {
+        for (buffer in bufferPool) {
+            if (buffer.modifyingTx() == txnum) buffer.flush()
+        }
+    }
+
     fun unpin(buffer: Buffer) {
-        buffer.unpin()
-        if (!buffer.isPinned) {
-            numAvailable++
-        }
-    }
-
-    fun unpinAll() {
-        bufferPool.forEach { unpin(it) }
-    }
-
-    fun getBuffer(blk: BlockId) = findExistingBuffer(blk)
-
-    @Synchronized
-    fun pin(blk: BlockId): Buffer {
-        val timeStamp = System.currentTimeMillis()
-        var buffer = tryToPin(blk)
-        while (buffer == null && !waitingTooLong(timeStamp)) {
-            lock.wait(MAX_TIME.toLong())
-            buffer = tryToPin(blk)
-        }
-        return buffer ?: throw InterruptedException()
-    }
-
-    @Synchronized
-    fun tryToPin(blk: BlockId):Buffer? {
-        val buffer = findExistingBuffer(blk)
-            ?: run {
-                chooseUnpinnedBuffer()
-                ?.apply { assignToBlock(blk) }
-                ?: return null
+        synchronized(lock) {
+            buffer.unpin()
+            if (!buffer.isPinned()) {
+                // bufferが使用できる場合は使用できる数（numAvailable）を増やし、スレッドを開放
+                numAvailable++
+                lock.notifyAll()
             }
-
-        return buffer.apply {
-            if(!isPinned) numAvailable--
-            pin()
         }
+    }
+
+    fun pin(blockId: BlockId): Buffer {
+        synchronized(lock) {
+            try {
+                val timestamp = System.currentTimeMillis()
+                var buffer = tryToPin(blockId)
+                while (buffer == null && !waitingTooLong(timestamp)) {
+                    lock.wait(MAX_TIME)
+                    buffer = tryToPin(blockId)
+                }
+                if (buffer == null) throw Exception()
+
+                return buffer
+            } catch (e: InterruptedException) {
+                throw Exception()
+            }
+        }
+    }
+
+    private fun waitingTooLong(starttime: Long): Boolean {
+        return System.currentTimeMillis() - starttime > MAX_TIME
+    }
+
+    private fun tryToPin(blockId: BlockId): Buffer? {
+        var buffer = findExistingBuffer(blockId)
+        if (buffer == null) {
+            buffer = chooseUnpinnedBuffer()
+            if (buffer == null) return null
+            buffer.assignToBlock(blockId)
+        }
+        if (!buffer.isPinned()) numAvailable--
+        buffer.pin()
+        return buffer
+    }
+
+    private fun findExistingBuffer(blockId: BlockId): Buffer? {
+        for (buffer in bufferPool) {
+            val bId = buffer.blockId()
+            if (bId == blockId) {
+                return buffer
+            }
+        }
+        return null
     }
 
     private fun chooseUnpinnedBuffer(): Buffer? {
-        return bufferPool.find { !it.isPinned }
-    }
-
-    private fun findExistingBuffer(blk: BlockId): Buffer? {
-        return bufferPool.find { it.block == blk && it.block != null }
+        for (buffer in bufferPool) {
+            if (!buffer.isPinned()) return buffer
+        }
+        return null
     }
 }

@@ -10,7 +10,7 @@ fun main() {
     val logMgr = db.logMgr
     val bufferMgr = db.bufferMgr
 
-    val tx1 = Transaction(fileMgr, logMgr, bufferMgr)
+    val tx1 = Transaction(fileMgr, bufferMgr,  logMgr)
     val blk = BlockId("filename", 1)
     tx1.pin(blk)
 
@@ -19,14 +19,14 @@ fun main() {
     tx1.setString(blk, 40, "one", false)
     tx1.commit()
 
-    val tx2 = Transaction(fileMgr, logMgr, bufferMgr)
+    val tx2 = Transaction(fileMgr, bufferMgr, logMgr)
     tx2.pin(blk)
     println("reading values: ${tx2.getInt(blk, 80)} ${tx2.getString(blk, 40)}")
     tx2.setInt(blk, 80, 2, true)
     tx2.setString(blk, 40, "two", true)
     tx2.commit()
 
-    val tx3 = Transaction(fileMgr, logMgr, bufferMgr)
+    val tx3 = Transaction(fileMgr, bufferMgr, logMgr)
     tx3.pin(blk)
     println("reading values: ${tx3.getInt(blk, 80)} ${tx3.getString(blk, 40)}")
     tx3.setInt(blk, 80, 99, true)
@@ -34,7 +34,7 @@ fun main() {
     println("reading values: ${tx3.getInt(blk, 80)} ${tx3.getString(blk, 40)}")
     tx3.rollback()
 
-    val tx4 = Transaction(fileMgr, logMgr, bufferMgr)
+    val tx4 = Transaction(fileMgr, bufferMgr, logMgr)
     tx4.pin(blk)
     println("reading values: ${tx4.getInt(blk, 80)} ${tx4.getString(blk, 40)}")
 }

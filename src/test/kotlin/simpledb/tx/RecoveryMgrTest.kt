@@ -11,10 +11,10 @@ fun main() {
     val logMgr = db.logMgr
     val bufferMgr = db.bufferMgr
 
-    val tx = Transaction(fileMgr, logMgr, bufferMgr)
+    val tx = Transaction(fileMgr, bufferMgr, logMgr)
     val blk = BlockId("testlog", 1)
     tx.pin(blk)
-    val buff = bufferMgr.getBuffer(blk)!!
+//    val buff = bufferMgr.(blk)!!
 //    tx.recoveryMgr.setString(buff, 0,"hello")
     SetStringRecord.writeToLog(logMgr, 0, blk, 0, "hello")
 }

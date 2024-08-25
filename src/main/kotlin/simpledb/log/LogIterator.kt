@@ -24,7 +24,7 @@ class LogIterator(
             moveToBlock(blk)
         }
         val rec = page.getBytes(currentPos)
-        currentPos += Int.SIZE_BYTES + rec.size
+        currentPos += Integer.BYTES + rec.size
         return rec
     }
 

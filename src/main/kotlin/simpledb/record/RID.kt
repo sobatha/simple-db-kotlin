@@ -1,10 +1,12 @@
 package simpledb.record
 
-data class RID(val blockNumber: Int, val slot: Int) {
-    override fun hashCode(): Int {
-        var result = blockNumber
-        result = 31 * result + slot
-        return result
+class RID(
+    val blockNumber: Int,
+    val slot: Int
+) {
+    override fun equals(other: Any?): Boolean {
+        val r = other as RID
+        return blockNumber == r.blockNumber && slot == r.slot
     }
 
     override fun toString(): String {

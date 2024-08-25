@@ -42,6 +42,6 @@ class SimpleDB(private val dirName: String) {
     }
 
     fun newTransaction(): Transaction {
-        return Transaction(fileMgr, logMgr, bufferMgr)
+        return Transaction(fileMgr, bufferMgr, logMgr)
     }
 }
