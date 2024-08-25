@@ -116,7 +116,8 @@ class Parser(s: String) {
     }
 
     private fun fieldList(): List<String> {
-        val L = mutableListOf(field())
+        val L = mutableListOf<String>()
+        L.add(field())
         if (lex.matchDelim(',')) {
             lex.eatDelimiter(',')
             L.addAll(fieldList())
@@ -125,7 +126,8 @@ class Parser(s: String) {
     }
 
     private fun constList(): List<Constant> {
-        val L = mutableListOf(constant())
+        val L = mutableListOf<Constant>()
+        L.add(constant())
         if (lex.matchDelim(',')) {
             lex.eatDelimiter(',')
             L.addAll(constList())
