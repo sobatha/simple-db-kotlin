@@ -48,7 +48,7 @@ class RecordPage(
             for (fieldName in schema.fields) {
                 val layoutOffset = layout.offset(fieldName) ?: throw RecordPageException()
                 val fieldPosition = offset(slot) + layoutOffset
-                if (schema.type(fieldName) == java.sql.Types.INTEGER) {
+                if (schema.type(fieldName).number == java.sql.Types.INTEGER) {
                     transaction.setInt(blockId, fieldPosition, 0, false)
                 } else {
                     transaction.setString(blockId, fieldPosition, "", false)

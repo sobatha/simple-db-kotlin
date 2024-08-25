@@ -1,5 +1,6 @@
 package simpledb.metadata
 
+import simpledb.record.FieldType
 import simpledb.record.Layout
 import simpledb.record.Schema
 import simpledb.record.TableScan
@@ -50,7 +51,7 @@ class TableMgr(
             fieldCatalog.setString("tablename", tableName)
             fieldCatalog.setString("fieldname", fieldName)
             val schemaType = schema.type(fieldName) ?: throw RuntimeException("null schema type")
-            fieldCatalog.setInt("type", schemaType)
+            fieldCatalog.setInt("type", schemaType.number)
             val schemaLength = schema.length(fieldName) ?: throw RuntimeException("null schema type")
             fieldCatalog.setInt("length", schemaLength)
             val layoutOffset = layout.offset(fieldName) ?: throw RuntimeException("null schema type")
@@ -80,7 +81,7 @@ class TableMgr(
                 val fieldLength = fieldCatalog.getInt("length")
                 val offset = fieldCatalog.getInt("offset")
                 offsets[fieldName] = offset
-                schema.addField(fieldName, fieldType, fieldLength)
+                schema.addField(fieldName, FieldType.fieldTypeFactory(fieldType), fieldLength)
             }
         }
         fieldCatalog.close()

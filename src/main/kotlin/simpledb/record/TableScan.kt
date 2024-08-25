@@ -52,7 +52,7 @@ class TableScan(
     }
 
     override fun getVal(fieldName: String): Constant {
-        return if (layout.schema().type(fieldName) == java.sql.Types.INTEGER) {
+        return if (layout.schema().type(fieldName).number == java.sql.Types.INTEGER) {
             Constant(getInt(fieldName))
         } else {
             Constant(getString(fieldName))
@@ -72,7 +72,7 @@ class TableScan(
     }
 
     override fun setVal(fieldName: String, value: Constant) {
-        if (layout.schema().type(fieldName) == java.sql.Types.INTEGER) {
+        if (layout.schema().type(fieldName).number == java.sql.Types.INTEGER) {
             val intValue = value.asInt() ?: throw RuntimeException("null value")
             setInt(fieldName, intValue)
         } else {

@@ -37,7 +37,7 @@ class IndexInfo(
         val schema = Schema()
         schema.addIntField("block")
         schema.addIntField("id")
-        if (schema.type(fldname) == java.sql.Types.INTEGER) {
+        if (schema.type(fldname).number == java.sql.Types.INTEGER) {
             schema.addIntField("dataval")
         } else {
             val fieldLength = schema.length(fldname) ?: throw RuntimeException("field length null error")

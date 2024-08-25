@@ -29,14 +29,14 @@ class Transaction(
         recoveryManager.commit()
         concurrencyManager.release()
         myBuffers.unpinAll()
-        println("transaction $transactionNumber committed")
+//        println("transaction $transactionNumber committed")
     }
 
     fun rollback() {
         recoveryManager.rollback()
         concurrencyManager.release()
         myBuffers.unpinAll()
-        println("transaction $transactionNumber rolled back")
+//        println("transaction $transactionNumber rolled back")
     }
 
     fun  recover() {
@@ -112,7 +112,7 @@ class Transaction(
         @Synchronized
         fun nextTransactionNumber(): Int {
             this.nextTransactionNumber++
-            println("new transaction $nextTransactionNumber")
+//            println("new transaction $nextTransactionNumber")
             return nextTransactionNumber
         }
     }
@@ -141,9 +141,6 @@ class BufferList(private val bufferManager: BufferMgr) {
         }
     }
 
-    /**
-     * トランザクションに結び付けられてるバッファを管理からすべて外す
-     */
     fun unpinAll() {
         for (blockId in pins) {
             val buffer = buffers[blockId]

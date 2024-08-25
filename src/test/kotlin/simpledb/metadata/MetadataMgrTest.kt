@@ -22,7 +22,7 @@ fun main() {
     println("MyTable has slot size $size")
     println("Its fields are:")
     for (fldname in sch2.fields) {
-        val type = if (sch2.type(fldname) == java.sql.Types.INTEGER) {
+        val type = if (sch2.type(fldname).number == java.sql.Types.INTEGER) {
             "int"
         } else {
             val strlen = sch2.length(fldname)

@@ -72,7 +72,7 @@ class Layout {
      */
     private fun lengthInBytes(fieldName: String): Int {
         val fieldType = schema.type(fieldName)
-        if (fieldType == java.sql.Types.INTEGER) return Integer.BYTES
+        if (fieldType.number == java.sql.Types.INTEGER) return Integer.BYTES
         // fieldType == java.sql.Types.VARCHAR
         val schemaLength = schema.length(fieldName) ?: throw RuntimeException("指定されたフィールドがありません")
         return Page.maxLength(schemaLength)

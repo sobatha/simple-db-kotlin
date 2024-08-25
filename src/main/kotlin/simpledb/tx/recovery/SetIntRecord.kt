@@ -12,12 +12,12 @@ class SetIntRecord(page: Page) : LogRecord {
     val offset = page.getInt(Integer.BYTES * 3 + Page.maxLength(fileName.length))
     val int_val = page.getInt(Integer.BYTES * 4 + Page.maxLength(fileName.length))
     val blk = BlockId(fileName, blknum)
-    init {
-        println("Log record setInt created with file name: $fileName")
-        println("Log record setInt created with offset: $offset")
-        println("Log record setInt created with string value: $int_val")
-        println("Log record setInt created with block: $blk")
-    }
+//    init {
+//        println("Log record setInt created with file name: $fileName")
+//        println("Log record setInt created with offset: $offset")
+//        println("Log record setInt created with string value: $int_val")
+//        println("Log record setInt created with block: $blk")
+//    }
 
     override val op: LogType
         get() = LogType.SETSTRING

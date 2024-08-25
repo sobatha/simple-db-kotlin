@@ -16,13 +16,13 @@ class EmbeddedMetaData(
 
     override fun getColumnType(column: Int): Int {
         val fieldName = getColumnName(column)
-        return schema.type(fieldName) ?: throw RuntimeException("null error")
+        return schema.type(fieldName).number ?: throw RuntimeException("null error")
     }
 
     override fun getColumnDisplaySize(column: Int): Int {
         val fieldName = getColumnName(column)
         val fieldType = schema.type(fieldName) ?: throw RuntimeException("null error")
-        val fieldLength = if (fieldType == java.sql.Types.INTEGER) {
+        val fieldLength = if (fieldType.number == java.sql.Types.INTEGER) {
             6
         } else {
             schema.length(fieldName)
