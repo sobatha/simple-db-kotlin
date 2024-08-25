@@ -39,6 +39,7 @@ private fun doQuery(statement: Statement, cmd: String) {
         val metaData = resultSet.metaData
         val columnCount = metaData.columnCount
         var totalwidth = 0
+
         // print header
         for (i in 1..columnCount) {
             val fieldName = metaData.getColumnName(i)
